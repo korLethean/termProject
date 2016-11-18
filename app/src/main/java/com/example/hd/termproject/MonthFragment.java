@@ -23,16 +23,16 @@ public class MonthFragment extends Fragment{
 
     TextView textYearMonth;
     TextView textSelectedDay;
-    Button buttonPrevious;
+    Button buttonLast;
     Button buttonToday;
     Button buttonNext;
 
-    Date CALENDAR_CURRENTDATE = new Date();
-    int CALENDAR_YEAR;
-    int CALENDAR_MONTH;
-    int CALENDAR_DAY;
-    ArrayList<String> CALENDAR_DAYOFWEEK;
-    Calendar CALENDAR_DATA;
+    private Date CALENDAR_CURRENTDATE = new Date();
+    private int CALENDAR_YEAR;
+    private int CALENDAR_MONTH;
+    private int CALENDAR_DAY;
+    private ArrayList<String> CALENDAR_DAYOFWEEK;
+    private Calendar CALENDAR_DATA;
 
     private CalendarAdapter calendarAdapter;
     private GridView calendarFrame;
@@ -51,7 +51,7 @@ public class MonthFragment extends Fragment{
         textYearMonth.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
         textSelectedDay = (TextView)fragmentView.findViewById(R.id.textSelectedDay);
         textSelectedDay.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
-        buttonPrevious = (Button)fragmentView.findViewById(R.id.buttonPreviousMonth);
+        buttonLast = (Button)fragmentView.findViewById(R.id.buttonLastMonth);
         buttonToday = (Button)fragmentView.findViewById(R.id.buttonToday);
         buttonNext = (Button)fragmentView.findViewById(R.id.buttonNextMonth);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
@@ -79,9 +79,16 @@ public class MonthFragment extends Fragment{
 
         setTextSelectedYearMonthDay();
 
-        buttonPrevious.setOnClickListener(new View.OnClickListener(){
+        buttonLast.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                if(CALENDAR_MONTH == 2 && CALENDAR_DAY > 28) {
+                    CALENDAR_DAY = 28;
+                }
+                else if(CALENDAR_DAY == 31) {
+                    CALENDAR_DAY = 30;
+                }
+
                 CALENDAR_MONTH -= 1;
                 CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                 calendarAdapter.notifyDataSetChanged();

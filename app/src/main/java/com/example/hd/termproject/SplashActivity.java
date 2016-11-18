@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity{
-
     FrameLayout titleFrame;
     ImageView titleImage;
     int screenWidth;

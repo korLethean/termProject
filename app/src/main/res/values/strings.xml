@@ -2,10 +2,13 @@
     <string name="app_name">Term Project</string>
     <string name="calendar_year">.</string>
     <string name="calendar_month">.</string>
-    <string name="menu_month">Month Calendar</string>
-    <string name="menu_week">Week Calendar</string>
-    <string name="menu_day">Day Calendar</string>
-    <string name="button_previous">Previous</string>
+    <string name="title_month">Monthly Calendar</string>
+    <string name="title_week">Weekly Calendar</string>
+    <string name="title_day">Daily Calendar</string>
+    <string name="menu_month">Monthly View</string>
+    <string name="menu_week">Weekly View</string>
+    <string name="menu_day">Daily View</string>
+    <string name="button_last">Last</string>
     <string name="button_today">Today</string>
     <string name="button_next">Next</string>
     <string name="button_add">Add</string>
