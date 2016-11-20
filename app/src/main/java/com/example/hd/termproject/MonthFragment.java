@@ -25,12 +25,14 @@ public class MonthFragment extends Fragment{
     TextView textSelectedDay;
     Button buttonLast;
     Button buttonToday;
+    Button buttonPick;
     Button buttonNext;
 
     private Date CALENDAR_CURRENTDATE = new Date();
     private int CALENDAR_YEAR;
     private int CALENDAR_MONTH;
     private int CALENDAR_DAY;
+    private boolean CALENDAR_LEAP;
     private ArrayList<String> CALENDAR_DAYOFWEEK;
     private Calendar CALENDAR_DATA;
 
@@ -53,12 +55,18 @@ public class MonthFragment extends Fragment{
         textSelectedDay.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
         buttonLast = (Button)fragmentView.findViewById(R.id.buttonLastMonth);
         buttonToday = (Button)fragmentView.findViewById(R.id.buttonToday);
+        buttonPick = (Button)fragmentView.findViewById(R.id.buttonPick);
         buttonNext = (Button)fragmentView.findViewById(R.id.buttonNextMonth);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
 
         CALENDAR_YEAR = fragmentBundle.getInt("YEAR");
         CALENDAR_MONTH = fragmentBundle.getInt("MONTH");
         CALENDAR_DAY = fragmentBundle.getInt("DAY");
+
+        if((CALENDAR_YEAR % 4 == 0 && CALENDAR_YEAR % 100 != 0) || CALENDAR_YEAR % 400 == 0)
+            CALENDAR_LEAP = true;
+        else
+            CALENDAR_LEAP = false;
 
         CALENDAR_DAYOFWEEK = new ArrayList<String>();
         CALENDAR_DAYOFWEEK.add(getString(R.string.calendar_error));
@@ -82,8 +90,11 @@ public class MonthFragment extends Fragment{
         buttonLast.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(CALENDAR_MONTH == 2 && CALENDAR_DAY > 28) {
-                    CALENDAR_DAY = 28;
+                if (CALENDAR_MONTH == 2) {
+                    if(CALENDAR_LEAP == false && CALENDAR_DAY > 28)
+                        CALENDAR_DAY = 28;
+                    else if(CALENDAR_LEAP == true && CALENDAR_DAY > 29)
+                        CALENDAR_DAY = 29;
                 }
                 else if(CALENDAR_DAY == 31) {
                     CALENDAR_DAY = 30;
@@ -93,6 +104,7 @@ public class MonthFragment extends Fragment{
                 CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                 calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
+                changeStaticValues();
             }
         });
 
@@ -100,8 +112,17 @@ public class MonthFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 CALENDAR_DATA.setTime(CALENDAR_CURRENTDATE);
+
                 calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
+                changeStaticValues();
+            }
+        });
+
+        buttonPick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("picker");
             }
         });
 
@@ -112,6 +133,7 @@ public class MonthFragment extends Fragment{
                 CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                 calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
+                changeStaticValues();
             }
         });
 
@@ -126,6 +148,7 @@ public class MonthFragment extends Fragment{
 
                     CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                     setTextSelectedYearMonthDay();
+                    changeStaticValues();
                 }
             }
         });
@@ -139,9 +162,21 @@ public class MonthFragment extends Fragment{
         CALENDAR_MONTH = CALENDAR_DATA.get(Calendar.MONTH);
         CALENDAR_DAY = CALENDAR_DATA.get(Calendar.DATE);
 
+        if((CALENDAR_YEAR % 4 == 0 && CALENDAR_YEAR % 100 != 0) || CALENDAR_YEAR % 400 == 0)
+            CALENDAR_LEAP = true;
+        else
+            CALENDAR_LEAP = false;
+
         textYearMonth.setText(CALENDAR_YEAR + getString(R.string.calendar_year) + " " +
                 + (CALENDAR_MONTH + 1) + getString(R.string.calendar_month));
         textSelectedDay.setText(CALENDAR_YEAR + "/" + (CALENDAR_MONTH + 1) + "/" + CALENDAR_DAY
                + " " + CALENDAR_DAYOFWEEK.get(index));
+    }
+
+    public void changeStaticValues() {
+        MainActivity.CALENDAR_DATA = CALENDAR_DATA;
+        MainActivity.CALENDAR_YEAR = CALENDAR_YEAR;
+        MainActivity.CALENDAR_MONTH = CALENDAR_MONTH;
+        MainActivity.CALENDAR_DAY = CALENDAR_DAY;
     }
 }

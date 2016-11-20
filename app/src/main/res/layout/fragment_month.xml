@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/fragment_month"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,8 +27,7 @@
         android:layout_weight="2"
         android:numColumns="7"
         android:id="@+id/calendarFrame"
-        >
-    </GridView>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,44 +38,72 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        android:background="@color/LittleGray"
-        android:id="@+id/frameText">
+        android:background="@color/LittleGray">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SELECTED DAY"
-            android:id="@+id/textSelectedDay"
-            />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <FrameLayout
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SELECTED DAY"
+                android:id="@+id/textSelectedDay"
+                />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/calendarSchedule"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/frameButton">
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/button_last"
-                android:layout_gravity="left|bottom"
+                android:layout_alignParentBottom="true"
                 android:id="@+id/buttonLastMonth"
                 />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/button_today"
-                android:layout_gravity="bottom|center"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/buttonLastMonth"
                 android:id="@+id/buttonToday"
                 />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button_pick"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/buttonToday"
+                android:id="@+id/buttonPick"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/button_next"
-                android:layout_gravity="right|bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/buttonPick"
                 android:id="@+id/buttonNextMonth"
                 />
-        </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

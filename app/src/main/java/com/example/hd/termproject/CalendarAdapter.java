@@ -20,8 +20,8 @@ public class CalendarAdapter extends BaseAdapter {
     private ArrayList<String> CALENDAR_DAYOFWEEK;
     private ArrayList<String> CALENDAR_DATENUMBER;
 
-    private int DAYOFWEEK_EXCLUDE = 7;
-    private int NULL_INCLUDE = 6;
+    private final int DAYOFWEEK_EXCLUDE = 7;
+    private final int NULL_INCLUDE = 6;
     private int DATE_START_POINT;
     private int DATE_END_POINT;
 

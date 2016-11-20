@@ -1,6 +1,7 @@
 package com.example.hd.termproject;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,17 +11,17 @@ import android.view.MenuItem;
 
 import java.util.Calendar;
 
-
 public class MainActivity extends AppCompatActivity {
-    private Calendar CALENDAR_DATA;
-    private int CALENDAR_YEAR;
-    private int CALENDAR_MONTH;
-    private int CALENDAR_DAY;
+    public static Calendar CALENDAR_DATA;
+    public static int CALENDAR_YEAR;
+    public static int CALENDAR_MONTH;
+    public static int CALENDAR_DAY;
 
     private int FRAGMENT_MANAGER;
-    final MonthFragment monthFragment = new MonthFragment();
-//    final WeekFragment weekFragment = new WeekFragment();
-//    final DayFragment dayFragment = new DayFragment();
+    private final MonthFragment monthFragment = new MonthFragment();
+//    private final WeekFragment weekFragment = new WeekFragment();
+//    private final DayFragment dayFragment = new DayFragment();
+    private final int REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_days:
                 switchFragment(2);
                 return true;
+            case R.id.menu_addSchedule:
+                switchFragment(3);
+                return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -94,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
             FRAGMENT_MANAGER = 2;
             getSupportActionBar().setTitle(getString(R.string.title_day));
             //fragmentTransaction.replace(R.id.activity_main, monthFragment);
+        }
+        else if(id == 3) {
+            Intent intent = new Intent(getApplicationContext(), AddScheduleActivity.class);
+            intent.putExtra("YEAR", CALENDAR_YEAR);
+            intent.putExtra("MONTH", CALENDAR_MONTH);
+            intent.putExtra("DAY", CALENDAR_DAY);
+            startActivityForResult(intent, REQUEST_CODE);
         }
 
         fragmentTransaction.addToBackStack(null);

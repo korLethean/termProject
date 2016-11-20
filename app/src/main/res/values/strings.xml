@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Term Project</string>
+    <string name="activity_add">Add Schedule</string>
     <string name="calendar_year">.</string>
     <string name="calendar_month">.</string>
     <string name="title_month">Monthly Calendar</string>
     <string name="title_week">Weekly Calendar</string>
     <string name="title_day">Daily Calendar</string>
+    <string name="menu_add">Add Schedule</string>
     <string name="menu_month">Monthly View</string>
     <string name="menu_week">Weekly View</string>
     <string name="menu_day">Daily View</string>
@@ -12,6 +14,28 @@
     <string name="button_today">Today</string>
     <string name="button_next">Next</string>
     <string name="button_add">Add</string>
+    <string name="button_pick">Pick</string>
+    <string name="button_pick_day">Pick Day</string>
+    <string name="button_pick_time">Pick Time</string>
+    <string name="button_save">Save</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="text_subject">Subject</string>
+    <string name="text_subject_edit">Enter Schedule Subject</string>
+    <string name="text_description">Description</string>
+    <string name="text_description_edit">Enter Schedule Description</string>
+    <string name="JANUARY">January</string>
+    <string name="FEBRUARY">February</string>
+    <string name="MARCH">March</string>
+    <string name="APRIL">April</string>
+    <string name="MAY">May</string>
+    <string name="JUNE">June</string>
+    <string name="JULY">July</string>
+    <string name="AUGUST">August</string>
+    <string name="SEPTEMBER">September</string>
+    <string name="OCTOBER">October</string>
+    <string name="NOVEMBER">November</string>
+    <string name="DECEMBER">December</string>
     <string name="SUNDAY">SUNDAY</string>
     <string name="MONDAY">MONDAY</string>
     <string name="TUESDAY">TUESDAY</string>
@@ -26,5 +50,7 @@
     <string name="THU">THU</string>
     <string name="FRI">FRI</string>
     <string name="SAT">SAT</string>
+    <string name="AM">A.M.</string>
+    <string name="PM">P.M.</string>
     <string name="calendar_error">ERROR</string>
 </resources>
