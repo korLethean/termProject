@@ -12,10 +12,10 @@ import android.view.MenuItem;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    public static Calendar CALENDAR_DATA;
-    public static int CALENDAR_YEAR;
-    public static int CALENDAR_MONTH;
-    public static int CALENDAR_DAY;
+    private static Calendar CALENDAR_DATA;
+    private static int CALENDAR_YEAR;
+    private static int CALENDAR_MONTH;
+    private static int CALENDAR_DAY;
 
     private int FRAGMENT_MANAGER;
     private final MonthFragment monthFragment = new MonthFragment();
@@ -35,21 +35,18 @@ public class MainActivity extends AppCompatActivity {
         CALENDAR_MONTH = CALENDAR_DATA.get(Calendar.MONTH);
         CALENDAR_DAY = CALENDAR_DATA.get(Calendar.DATE);
 
-        Bundle arguments = new Bundle();
-        arguments.putInt("YEAR", CALENDAR_YEAR);
-        arguments.putInt("MONTH", CALENDAR_MONTH);
-        arguments.putInt("DAY", CALENDAR_DAY);
-
         FRAGMENT_MANAGER = -1;
         switchFragment(0);
-        monthFragment.setArguments(arguments);
-        //weekFragment.setArguments(arguments);
-        //dayFragment.setArguments(arguments);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -101,13 +98,38 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(id == 3) {
             Intent intent = new Intent(getApplicationContext(), AddScheduleActivity.class);
-            intent.putExtra("YEAR", CALENDAR_YEAR);
-            intent.putExtra("MONTH", CALENDAR_MONTH);
-            intent.putExtra("DAY", CALENDAR_DAY);
-            startActivityForResult(intent, REQUEST_CODE);
+            startActivity(intent);
         }
 
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public static int getYear() {
+        return CALENDAR_YEAR;
+    }
+
+    public static int getMonth() {
+        return CALENDAR_MONTH;
+    }
+
+    public static int getDay() {
+        return CALENDAR_DAY;
+    }
+
+    public static void setYear(int year) {
+        CALENDAR_YEAR = year;
+    }
+
+    public static void setMonth(int month) {
+        CALENDAR_MONTH = month;
+    }
+
+    public static void setDay(int day) {
+        CALENDAR_DAY = day;
+    }
+
+    public static void setData() {
+        CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
     }
 }

@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -44,11 +45,10 @@ public class AddScheduleActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
-        final Intent intent = getIntent();
 
-        CALENDAR_YEAR = intent.getIntExtra("YEAR", 0);
-        CALENDAR_MONTH = intent.getIntExtra("MONTH", 0);
-        CALENDAR_DAY = intent.getIntExtra("DAY", 0);
+        CALENDAR_YEAR = MainActivity.getYear();
+        CALENDAR_MONTH = MainActivity.getMonth();
+        CALENDAR_DAY = MainActivity.getDay();
 
         CALENDAR_DATA = Calendar.getInstance();
         CALENDAR_HOUR = CALENDAR_DATA.get(Calendar.HOUR);
@@ -71,7 +71,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                 dateSetListener, CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
         timePickerDialog = new TimePickerDialog(AddScheduleActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth,
                 timeSetListener, CALENDAR_HOUR, CALENDAR_MIN, false);
-
 
         setTextSelectedDate();
         setTextSelectedTime();
@@ -98,16 +97,21 @@ public class AddScheduleActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                System.out.println("Save button");
+                MainActivity.setYear(CALENDAR_YEAR);
+                MainActivity.setMonth(CALENDAR_MONTH);
+                MainActivity.setDay(CALENDAR_DAY);
+                MainActivity.setData();
+                Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
+                onBackPressed();
             }
         });
 
         buttonClear.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                CALENDAR_YEAR = intent.getIntExtra("YEAR", 0);
-                CALENDAR_MONTH = intent.getIntExtra("MONTH", 0);
-                CALENDAR_DAY = intent.getIntExtra("DAY", 0);
+                CALENDAR_YEAR = MainActivity.getYear();
+                CALENDAR_MONTH = MainActivity.getMonth();
+                CALENDAR_DAY = MainActivity.getDay();
                 CALENDAR_HOUR = CALENDAR_DATA.get(Calendar.HOUR);
                 CALENDAR_MIN = CALENDAR_DATA.get(Calendar.MINUTE);
                 editSubject.setText(getString(R.string.text_subject_edit));
@@ -121,15 +125,20 @@ public class AddScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                finish();
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        return super.onCreateOptionsMenu(menu);
-    }
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    };
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -137,7 +146,6 @@ public class AddScheduleActivity extends AppCompatActivity {
             CALENDAR_YEAR = year;
             CALENDAR_MONTH = month;
             CALENDAR_DAY = day;
-
             setTextSelectedDate();
         }
     };
@@ -147,7 +155,6 @@ public class AddScheduleActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hour, int min) {
             CALENDAR_HOUR = hour;
             CALENDAR_MIN = min;
-
             setTextSelectedTime();
         }
     };

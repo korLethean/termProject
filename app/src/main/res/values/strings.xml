@@ -24,6 +24,7 @@
     <string name="text_subject_edit">Enter Schedule Subject</string>
     <string name="text_description">Description</string>
     <string name="text_description_edit">Enter Schedule Description</string>
+    <string name="message_saved">Schedule Saved!</string>
     <string name="JANUARY">January</string>
     <string name="FEBRUARY">February</string>
     <string name="MARCH">March</string>

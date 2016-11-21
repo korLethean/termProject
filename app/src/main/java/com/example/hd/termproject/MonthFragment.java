@@ -46,8 +46,6 @@ public class MonthFragment extends Fragment{
                                 Bundle savedInstanceState) {
         fragmentView = layoutInflater.inflate(R.layout.fragment_month, container, false);
         fragmentContext = container.getContext();
-        fragmentBundle = new Bundle();
-        fragmentBundle = getArguments();
 
         textYearMonth = (TextView)fragmentView.findViewById(R.id.textYearMonth);
         textYearMonth.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
@@ -59,14 +57,7 @@ public class MonthFragment extends Fragment{
         buttonNext = (Button)fragmentView.findViewById(R.id.buttonNextMonth);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
 
-        CALENDAR_YEAR = fragmentBundle.getInt("YEAR");
-        CALENDAR_MONTH = fragmentBundle.getInt("MONTH");
-        CALENDAR_DAY = fragmentBundle.getInt("DAY");
-
-        if((CALENDAR_YEAR % 4 == 0 && CALENDAR_YEAR % 100 != 0) || CALENDAR_YEAR % 400 == 0)
-            CALENDAR_LEAP = true;
-        else
-            CALENDAR_LEAP = false;
+        CALENDAR_DATA = Calendar.getInstance();
 
         CALENDAR_DAYOFWEEK = new ArrayList<String>();
         CALENDAR_DAYOFWEEK.add(getString(R.string.calendar_error));
@@ -78,14 +69,9 @@ public class MonthFragment extends Fragment{
         CALENDAR_DAYOFWEEK.add(getString(R.string.FRIDAY));
         CALENDAR_DAYOFWEEK.add(getString(R.string.SATURDAY));
 
-        CALENDAR_DATA = Calendar.getInstance();
-        CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
-
         calendarAdapter = new CalendarAdapter(fragmentContext, R.layout.calendar_item, CALENDAR_DATA);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
         calendarFrame.setAdapter(calendarAdapter);
-
-        setTextSelectedYearMonthDay();
 
         buttonLast.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -99,7 +85,6 @@ public class MonthFragment extends Fragment{
                 else if(CALENDAR_DAY == 31) {
                     CALENDAR_DAY = 30;
                 }
-
                 CALENDAR_MONTH -= 1;
                 CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                 calendarAdapter.notifyDataSetChanged();
@@ -112,7 +97,7 @@ public class MonthFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 CALENDAR_DATA.setTime(CALENDAR_CURRENTDATE);
-
+                CALENDAR_DAY = CALENDAR_DATA.get(Calendar.DATE);
                 calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
                 changeStaticValues();
@@ -140,12 +125,11 @@ public class MonthFragment extends Fragment{
         calendarFrame.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position > (calendarAdapter.getDATE_START_POINT() - 1) &&
-                        position - (calendarAdapter.getDATE_START_POINT()) < calendarAdapter.getDATE_END_POINT()) {
+                if(position > (calendarAdapter.getStartPoint() - 1) &&
+                        position - (calendarAdapter.getStartPoint()) < calendarAdapter.getEndPoint()) {
                     CALENDAR_YEAR = calendarAdapter.getYear();
                     CALENDAR_MONTH = calendarAdapter.getMonth();
                     CALENDAR_DAY = calendarAdapter.getDay(position);
-
                     CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                     setTextSelectedYearMonthDay();
                     changeStaticValues();
@@ -156,11 +140,28 @@ public class MonthFragment extends Fragment{
         return fragmentView;
     }
 
+    @Override
+    public void onStop() {
+        System.out.println("STOP");
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        CALENDAR_YEAR = MainActivity.getYear();
+        CALENDAR_MONTH = MainActivity.getMonth();
+        CALENDAR_DAY = MainActivity.getDay();
+        CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
+        calendarAdapter.notifyDataSetChanged();
+        setTextSelectedYearMonthDay();
+        System.out.println("RESUME");
+        super.onResume();
+    }
+
     public void setTextSelectedYearMonthDay() {
         int index = CALENDAR_DATA.get(Calendar.DAY_OF_WEEK);
         CALENDAR_YEAR = CALENDAR_DATA.get(Calendar.YEAR);
         CALENDAR_MONTH = CALENDAR_DATA.get(Calendar.MONTH);
-        CALENDAR_DAY = CALENDAR_DATA.get(Calendar.DATE);
 
         if((CALENDAR_YEAR % 4 == 0 && CALENDAR_YEAR % 100 != 0) || CALENDAR_YEAR % 400 == 0)
             CALENDAR_LEAP = true;
@@ -174,9 +175,9 @@ public class MonthFragment extends Fragment{
     }
 
     public void changeStaticValues() {
-        MainActivity.CALENDAR_DATA = CALENDAR_DATA;
-        MainActivity.CALENDAR_YEAR = CALENDAR_YEAR;
-        MainActivity.CALENDAR_MONTH = CALENDAR_MONTH;
-        MainActivity.CALENDAR_DAY = CALENDAR_DAY;
+        MainActivity.setYear(CALENDAR_YEAR);
+        MainActivity.setMonth(CALENDAR_MONTH);
+        MainActivity.setDay(CALENDAR_DAY);
+        MainActivity.setData();
     }
 }

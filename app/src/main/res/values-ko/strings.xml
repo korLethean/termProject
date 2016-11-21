@@ -54,4 +54,5 @@
     <string name="button_cancel">취소</string>
     <string name="button_clear">재입력</string>
     <string name="button_save">저장</string>
+    <string name="message_saved">일정이 저장되었습니다!</string>
 </resources>

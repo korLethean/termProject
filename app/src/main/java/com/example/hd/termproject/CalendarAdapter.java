@@ -28,6 +28,7 @@ public class CalendarAdapter extends BaseAdapter {
     private int YEAR;
     private int MONTH;
     private int[] DAY = new int[31];
+    private final String DATE_NULL = " ";
 
     public CalendarAdapter(Context context, int resource, Calendar calendar) {
         mContext = context;
@@ -76,16 +77,15 @@ public class CalendarAdapter extends BaseAdapter {
         return DAY[position - DATE_START_POINT];
     }
 
-    public int getDATE_START_POINT() {
+    public int getStartPoint() {
         return DATE_START_POINT;
     }
 
-    public int getDATE_END_POINT() {
+    public int getEndPoint() {
         return DATE_END_POINT;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        String DATE_NULL = " ";
         Calendar FOR_CALCULATE_POINT = Calendar.getInstance();
         FOR_CALCULATE_POINT.set(CALENDAR_DATA.get(Calendar.YEAR), CALENDAR_DATA.get(Calendar.MONTH), 1);
         DATE_START_POINT = FOR_CALCULATE_POINT.get(Calendar.DAY_OF_WEEK) + DAYOFWEEK_EXCLUDE - 1;
