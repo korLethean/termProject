@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), AddScheduleActivity.class);
             startActivity(intent);
         }
-
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

@@ -2,13 +2,10 @@ package com.example.hd.termproject;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,26 +14,28 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddScheduleActivity extends AppCompatActivity {
-    TextView textPickedDay;
-    TextView textPickedTime;
-    TextView textSubject;
-    TextView textDescription;
-    EditText editSubject;
-    EditText editDescription;
-    Button buttonPickDay;
-    Button buttonPickTime;
-    Button buttonSave;
-    Button buttonClear;
-    Button buttonCancel;
-    DatePickerDialog datePickerDialog;
-    TimePickerDialog timePickerDialog;
+    private TextView textPickedDay;
+    private TextView textPickedTime;
+    private TextView textSubject;
+    private TextView textDescription;
+    private EditText editSubject;
+    private EditText editDescription;
+    private Button buttonPickDay;
+    private Button buttonPickTime;
+    private Button buttonSave;
+    private Button buttonClear;
+    private Button buttonCancel;
+    private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
 
     private int CALENDAR_YEAR;
     private int CALENDAR_MONTH;
     private int CALENDAR_DAY;
+    private ArrayList<String> CALENDAR_DAYOFWEEK;
     private int CALENDAR_HOUR;
     private int CALENDAR_MIN;
     private Calendar CALENDAR_DATA;
@@ -53,6 +52,16 @@ public class AddScheduleActivity extends AppCompatActivity {
         CALENDAR_DATA = Calendar.getInstance();
         CALENDAR_HOUR = CALENDAR_DATA.get(Calendar.HOUR);
         CALENDAR_MIN = CALENDAR_DATA.get(Calendar.MINUTE);
+
+        CALENDAR_DAYOFWEEK = new ArrayList<String>();
+        CALENDAR_DAYOFWEEK.add(getString(R.string.calendar_error));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.SUN));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.MON));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.TUE));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.WED));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.THU));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.FRI));
+        CALENDAR_DAYOFWEEK.add(getString(R.string.SAT));
 
         textPickedDay = (TextView)findViewById(R.id.textPickedDay);
         textPickedDay.setTextColor(ContextCompat.getColor(this, R.color.BLACK));
@@ -103,6 +112,7 @@ public class AddScheduleActivity extends AppCompatActivity {
                 MainActivity.setData();
                 Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
                 onBackPressed();
+                finish();
             }
         });
 
@@ -146,6 +156,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             CALENDAR_YEAR = year;
             CALENDAR_MONTH = month;
             CALENDAR_DAY = day;
+            CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             setTextSelectedDate();
         }
     };
@@ -159,11 +170,13 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
     };
 
-    public void setTextSelectedDate() {
-        textPickedDay.setText(CALENDAR_YEAR + "/" + (CALENDAR_MONTH + 1) + "/" + CALENDAR_DAY);
+    private void setTextSelectedDate() {
+        int index = CALENDAR_DATA.get(Calendar.DAY_OF_WEEK);
+        textPickedDay.setText(CALENDAR_YEAR + "/" + (CALENDAR_MONTH + 1) + "/" + CALENDAR_DAY
+        + " " + CALENDAR_DAYOFWEEK.get(index));
     }
 
-    public void setTextSelectedTime() {
+    private void setTextSelectedTime() {
         int hour;
         String min;
         String ampm;
@@ -183,7 +196,6 @@ public class AddScheduleActivity extends AppCompatActivity {
             min = "0" + String.valueOf(CALENDAR_MIN);
         else
             min = String.valueOf(CALENDAR_MIN);
-
         textPickedTime.setText(ampm + " " + hour + ":" + min);
     }
 }
