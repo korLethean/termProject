@@ -19,17 +19,27 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Picked Day"
-            android:id="@+id/textPickedDay"
+            android:layout_weight="1"
+            android:text="@string/text_start_day"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textStartDay"
             />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:text="@string/button_pick_day"
-            android:id="@+id/buttonPickday"/>
+            android:id="@+id/buttonPickStartDay"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/button_pick_time"
+            android:id="@+id/buttonPickStartTime"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -41,18 +51,42 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Picked Time"
-                android:id="@+id/textPickedTime"
+                android:layout_weight="1"
+                android:text="@string/text_end_day"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textEndDay"
                 />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_pick_time"
-                android:id="@+id/buttonPickTime"
+                android:layout_weight="3"
+                android:text="@string/button_pick_day"
+                android:id="@+id/buttonPickEndDay"
                 />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/button_pick_time"
+                android:id="@+id/buttonPickEndTime"
+                 />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/settings"
+            android:id="@+id/spinnerFastSetting"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -66,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_subject"
+            android:textColor="@color/BLACK"
             android:id="@+id/textSubject"
             />
 
@@ -81,6 +116,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_place"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textPlace"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/text_place_edit"
+            android:id="@+id/editPlace"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="10">
 
@@ -88,6 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_description"
+            android:textColor="@color/BLACK"
             android:id="@+id/textDescription"
             />
 

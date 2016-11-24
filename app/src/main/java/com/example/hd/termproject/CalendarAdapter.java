@@ -114,8 +114,6 @@ public class CalendarAdapter extends BaseAdapter {
             calendarText.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
         else if (position % 7 == 6)
             calendarText.setTextColor(ContextCompat.getColor(mContext, R.color.BLUE));
-        else
-            calendarText.setTextColor(ContextCompat.getColor(mContext, R.color.BLACK));
 
         YEAR = CALENDAR_DATA.get(Calendar.YEAR);
         MONTH = CALENDAR_DATA.get(Calendar.MONTH);

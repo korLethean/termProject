@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MonthFragment extends Fragment{
 
     private TextView textYearMonth;
     private TextView textSelectedDay;
+    private TextView temp;
     private Button buttonLast;
     private Button buttonToday;
     private Button buttonPick;
@@ -37,9 +39,14 @@ public class MonthFragment extends Fragment{
     private boolean CALENDAR_LEAP;
     private ArrayList<String> CALENDAR_DAYOFWEEK;
     private Calendar CALENDAR_DATA;
+    private String SCHEDULE_DURATION;
 
     private CalendarAdapter calendarAdapter;
+    private ScheduleAdapter scheduleAdapter;
     private GridView calendarFrame;
+    private ListView scheduleFrame;
+
+    private DBManager database;
 
     public MonthFragment() { }
 
@@ -48,18 +55,33 @@ public class MonthFragment extends Fragment{
                                 Bundle savedInstanceState) {
         fragmentView = layoutInflater.inflate(R.layout.fragment_month, container, false);
         fragmentContext = container.getContext();
+        database = new DBManager(fragmentContext, null);
+
+        //////// tempdata
+        temp = (TextView)fragmentView.findViewById(R.id.temp);
+        ////////
 
         textYearMonth = (TextView)fragmentView.findViewById(R.id.textYearMonth);
-        textYearMonth.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
         textSelectedDay = (TextView)fragmentView.findViewById(R.id.textSelectedDay);
-        textSelectedDay.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
         buttonLast = (Button)fragmentView.findViewById(R.id.buttonLastMonth);
         buttonToday = (Button)fragmentView.findViewById(R.id.buttonToday);
         buttonPick = (Button)fragmentView.findViewById(R.id.buttonPick);
         buttonNext = (Button)fragmentView.findViewById(R.id.buttonNextMonth);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
         datePickerDialog = new DatePickerDialog(fragmentContext, android.R.style.Theme_Holo_Dialog_MinWidth,
-                dateSetListener, CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
+                new DatePickerDialog.OnDateSetListener(){
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        CALENDAR_YEAR = year;
+                        CALENDAR_MONTH = month;
+                        CALENDAR_DAY = day;
+                        CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
+                        calendarAdapter.notifyDataSetChanged();
+                        setTextSelectedYearMonthDay();
+                        setTextSchedule(database);
+                        changeStaticValues();
+                    }
+                }, CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
 
         CALENDAR_DATA = Calendar.getInstance();
 
@@ -76,6 +98,8 @@ public class MonthFragment extends Fragment{
         calendarAdapter = new CalendarAdapter(fragmentContext, R.layout.calendar_item, CALENDAR_DATA);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
         calendarFrame.setAdapter(calendarAdapter);
+//        scheduleAdapter = new ScheduleAdapter(fragmentContext, R.layout.schedule_item);
+        scheduleFrame = (ListView)fragmentView.findViewById(R.id.scheduleFrame);
 
         buttonLast.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -91,9 +115,11 @@ public class MonthFragment extends Fragment{
                 }
                 CALENDAR_MONTH -= 1;
                 CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
-                calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
+                setTextSchedule(database);
                 changeStaticValues();
+                calendarAdapter.notifyDataSetChanged();
+                datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             }
         });
 
@@ -101,10 +127,11 @@ public class MonthFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 CALENDAR_DATA.setTime(CALENDAR_CURRENTDATE);
-                CALENDAR_DAY = CALENDAR_DATA.get(Calendar.DATE);
-                calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
+                setTextSchedule(database);
                 changeStaticValues();
+                calendarAdapter.notifyDataSetChanged();
+                datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             }
         });
 
@@ -118,11 +145,19 @@ public class MonthFragment extends Fragment{
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (CALENDAR_MONTH == 0) {
+                    if(CALENDAR_LEAP == false && CALENDAR_DAY > 28)
+                        CALENDAR_DAY = 28;
+                    else if(CALENDAR_LEAP == true && CALENDAR_DAY > 29)
+                        CALENDAR_DAY = 29;
+                }
                 CALENDAR_MONTH += 1;
                 CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
-                calendarAdapter.notifyDataSetChanged();
                 setTextSelectedYearMonthDay();
+                setTextSchedule(database);
                 changeStaticValues();
+                calendarAdapter.notifyDataSetChanged();
+                datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             }
         });
 
@@ -136,7 +171,9 @@ public class MonthFragment extends Fragment{
                     CALENDAR_DAY = calendarAdapter.getDay(position);
                     CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                     setTextSelectedYearMonthDay();
+                    setTextSchedule(database);
                     changeStaticValues();
+                    datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
                 }
             }
         });
@@ -153,26 +190,15 @@ public class MonthFragment extends Fragment{
         datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
         calendarAdapter.notifyDataSetChanged();
         setTextSelectedYearMonthDay();
+        setTextSchedule(database);
         super.onResume();
     }
-
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            CALENDAR_YEAR = year;
-            CALENDAR_MONTH = month;
-            CALENDAR_DAY = day;
-            CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
-            calendarAdapter.notifyDataSetChanged();
-            setTextSelectedYearMonthDay();
-            changeStaticValues();
-        }
-    };
 
     private void setTextSelectedYearMonthDay() {
         int index = CALENDAR_DATA.get(Calendar.DAY_OF_WEEK);
         CALENDAR_YEAR = CALENDAR_DATA.get(Calendar.YEAR);
         CALENDAR_MONTH = CALENDAR_DATA.get(Calendar.MONTH);
+        CALENDAR_DAY = CALENDAR_DATA.get(Calendar.DATE);
 
         if((CALENDAR_YEAR % 4 == 0 && CALENDAR_YEAR % 100 != 0) || CALENDAR_YEAR % 400 == 0)
             CALENDAR_LEAP = true;
@@ -183,6 +209,10 @@ public class MonthFragment extends Fragment{
                 + (CALENDAR_MONTH + 1) + getString(R.string.calendar_month));
         textSelectedDay.setText(CALENDAR_YEAR + "/" + (CALENDAR_MONTH + 1) + "/" + CALENDAR_DAY
                + " " + CALENDAR_DAYOFWEEK.get(index));
+    }
+
+    private void setTextSchedule(DBManager db) {
+        temp.setText(db.PrintData(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY));
     }
 
     private void changeStaticValues() {

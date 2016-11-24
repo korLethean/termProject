@@ -55,4 +55,21 @@
     <string name="button_clear">재입력</string>
     <string name="button_save">저장</string>
     <string name="message_saved">일정이 저장되었습니다!</string>
+    <string name="text_start_day">시작일</string>
+    <string name="text_end_day">종료일</string>
+    <string name="item_eight_hours">8시간</string>
+    <string name="item_five_hours">5시간</string>
+    <string name="item_four_hours">4시간</string>
+    <string name="item_half_day">반나절</string>
+    <string name="item_one_hour">1시간</string>
+    <string name="item_six_hours">6시간</string>
+    <string name="item_ten_minutes">10분</string>
+    <string name="item_three_hours">3시간</string>
+    <string name="item_two_hours">2시간</string>
+    <string name="item_whole_day">하루종일</string>
+    <string name="item_half_hour">30분</string>
+    <string name="text_place">장소</string>
+    <string name="text_place_edit">장소를 입력하세요</string>
+    <string name="message_unable_set">시작 시간보다 늦어야 합니다</string>
+    <string name="item_fast_setting">빠른 시간 설정</string>
 </resources>

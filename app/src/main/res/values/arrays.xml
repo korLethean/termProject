@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "settings">
+        <item>@string/item_fast_setting</item>
+        <item>@string/item_ten_minutes</item>
+        <item>@string/item_half_hour</item>
+        <item>@string/item_one_hour</item>
+        <item>@string/item_two_hours</item>
+        <item>@string/item_three_hours</item>
+        <item>@string/item_four_hours</item>
+        <item>@string/item_five_hours</item>
+        <item>@string/item_eight_hours</item>
+        <item>@string/item_half_day</item>
+        <item>@string/item_whole_day</item>
+    </string-array>
+</resources>
