@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ExpandedMenuView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,31 +12,24 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddScheduleActivity extends AppCompatActivity {
-    private TextView textStartDay;
     private Button buttonPickStartDay;
     private DatePickerDialog startDatePickerDialog;
     private Button buttonPickStartTime;
     private TimePickerDialog startTimePickerDialog;
-    private TextView textEndDay;
     private Button buttonPickEndDay;
     private DatePickerDialog endDatePickerDialog;
     private Button buttonPickEndTime;
     private TimePickerDialog endTimePickerDialog;
     private Spinner spinnerFastSetting;
-    private TextView textSubject;
     private EditText editSubject;
-    private TextView textPlace;
     private EditText editPlace;
-    private TextView textDescription;
     private EditText editDescription;
     private Button buttonSave;
     private Button buttonClear;
@@ -78,9 +70,6 @@ public class AddScheduleActivity extends AppCompatActivity {
         START_DAY = MainActivity.getDay();
         END_DAY = START_DAY;
 
-        System.out.println(START_DAY);
-        System.out.println(END_DAY);
-
         START_CALENDAR_DATA = Calendar.getInstance();
         START_CALENDAR_DATA.set(START_YEAR, START_MONTH, START_DAY);
         END_CALENDAR_DATA = Calendar.getInstance();
@@ -107,7 +96,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                 (this, android.R.layout.simple_spinner_dropdown_item, spinnerResources);
         spinnerFastSetting.setAdapter(spinnerAdapter);
 
-        textStartDay = (TextView)findViewById(R.id.textStartDay);
         buttonPickStartDay = (Button)findViewById(R.id.buttonPickStartDay);
         buttonPickStartTime = (Button)findViewById(R.id.buttonPickStartTime);
         setButtonTextSelectedDate(BUTTON_START);
@@ -132,7 +120,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                         checkDateAndTimeError(BUTTON_START);
                     }
                 }, START_HOUR, START_MIN, false);
-        textEndDay = (TextView)findViewById(R.id.textEndDay);
         buttonPickEndDay = (Button)findViewById(R.id.buttonPickEndDay);
         buttonPickEndTime = (Button)findViewById(R.id.buttonPickEndTime);
         setButtonTextSelectedDate(BUTTON_END);
@@ -158,16 +145,12 @@ public class AddScheduleActivity extends AppCompatActivity {
                         checkDateAndTimeError(BUTTON_END);
                     }
                 }, END_HOUR, END_MIN, false);
-        textSubject = (TextView)findViewById(R.id.textSubject);
         editSubject = (EditText)findViewById(R.id.editSubject);
-        textPlace = (TextView)findViewById(R.id.textPlace);
         editPlace = (EditText)findViewById(R.id.editPlace);
-        textDescription = (TextView)findViewById(R.id.textDescription);
         editDescription = (EditText)findViewById(R.id.editDescription);
         buttonSave = (Button)findViewById(R.id.buttonSave);
         buttonClear = (Button)findViewById(R.id.buttonClear);
         buttonCancel = (Button)findViewById(R.id.buttonCancel);
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -43,7 +43,6 @@ public class CalendarAdapter extends BaseAdapter {
         CALENDAR_DAYOFWEEK.add(mContext.getResources().getString(R.string.FRI));
         CALENDAR_DAYOFWEEK.add(mContext.getResources().getString(R.string.SAT));
 
-
         CALENDAR_DATENUMBER = new ArrayList<String>();
         for (int i = 0; i < 31; i++) {
             CALENDAR_DATENUMBER.add(String.valueOf(i + 1));
@@ -114,6 +113,8 @@ public class CalendarAdapter extends BaseAdapter {
             calendarText.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
         else if (position % 7 == 6)
             calendarText.setTextColor(ContextCompat.getColor(mContext, R.color.BLUE));
+        else
+            calendarText.setTextColor(ContextCompat.getColor(mContext, R.color.BLACK));
 
         YEAR = CALENDAR_DATA.get(Calendar.YEAR);
         MONTH = CALENDAR_DATA.get(Calendar.MONTH);

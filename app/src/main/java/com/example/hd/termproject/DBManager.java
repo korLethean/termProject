@@ -84,7 +84,7 @@ public class DBManager extends SQLiteOpenHelper{
         return cursor.getInt(0);
     }
 
-    public String PrintData(int year, int month, int day) {
+    public String PrintStartData(int year, int month, int day) {
         SQLiteDatabase db = getReadableDatabase();
         String str = "";
         String query = String.format("SELECT startHour, startMin, subject, place, description FROM SCHEDULES " +
@@ -97,7 +97,32 @@ public class DBManager extends SQLiteOpenHelper{
             if(cursor.getInt(2) < 10)
                 minutes  = "0" + minutes;
 
-            str += cursor.getInt(0)
+            str += "[START] "
+                    + cursor.getInt(0)
+                    + " : " + minutes
+                    + " " + cursor.getString(2)
+                    + " at " + cursor.getString(3)
+                    + " / " + cursor.getString(4)
+                    + "\n";
+        }
+        return str;
+    }
+
+    public String PrintEndData(int year, int month, int day) {
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "";
+        String query = String.format("SELECT endHour, endMin, subject, place, description FROM SCHEDULES " +
+                        "WHERE endYear='%d' AND endMonth='%d' AND endDay='%d';",
+                year, month, day);
+        Cursor cursor = db.rawQuery(query, null);
+
+        while(cursor.moveToNext()) {
+            String minutes = String.valueOf(cursor.getInt(2));
+            if(cursor.getInt(2) < 10)
+                minutes  = "0" + minutes;
+
+            str += "[END] "
+                    + cursor.getInt(0)
                     + " : " + minutes
                     + " " + cursor.getString(2)
                     + " at " + cursor.getString(3)

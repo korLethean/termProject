@@ -55,19 +55,18 @@
                 android:id="@+id/textSelectedDay"
                 />
 
-            <TextView
+            <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SCHEDULE"
-                android:textColor="@color/BLACK"
-                android:id="@+id/temp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/scheduleStartFrame"
                 />
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0"
-                android:id="@+id/scheduleFrame"
+                android:layout_weight="1"
+                android:id="@+id/scheduleEndFrame"
                 />
         </LinearLayout>
 
