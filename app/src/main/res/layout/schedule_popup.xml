@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
+    android:id="@+id/popup_window"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,7 +29,7 @@
             android:layout_weight="2"
             android:text="popup_subject"
             android:textColor="@color/BLACK"
-            android:id="@+id/popup_subject"
+            android:id="@+id/popupSubject"
             />
     </LinearLayout>
 
@@ -52,6 +52,78 @@
             android:text="popup_place"
             android:textColor="@color/BLACK"
             android:id="@+id/popupPlace"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_popup_start"
+            android:textColor="@color/BLACK"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="popup_start_schedule"
+            android:textColor="@color/BLACK"
+            android:id="@+id/popupStart"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_popup_end"
+            android:textColor="@color/BLACK"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="popup_end_schedule"
+            android:textColor="@color/BLACK"
+            android:id="@+id/popupEnd"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_description"
+            android:textColor="@color/BLACK"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="popup_description"
+            android:textColor="@color/BLACK"
+            android:id="@+id/popupDescription"
             />
     </LinearLayout>
 

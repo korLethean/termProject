@@ -18,20 +18,18 @@ public class EndScheduleAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView endSchedules = (TextView)view.findViewById(R.id.scheduleItem);
 
-        if(cursor.getCount() > 0) {
-            String hourString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endHour")));
-            String minString;
-            if (cursor.getInt(cursor.getColumnIndex("endMin")) < 10)
-                minString = String.valueOf("0" + cursor.getInt(cursor.getColumnIndex("endMin")));
-            else
-                minString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endMin")));
-            String subject = cursor.getString(cursor.getColumnIndex("subject"));
-            String place = cursor.getString(cursor.getColumnIndex("place"));
-            String description = cursor.getString(cursor.getColumnIndex("description"));
+        String hourString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endHour")));
+        String minString;
+        if (cursor.getInt(cursor.getColumnIndex("endMin")) < 10)
+            minString = String.valueOf("0" + cursor.getInt(cursor.getColumnIndex("endMin")));
+        else
+            minString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endMin")));
+        String subject = cursor.getString(cursor.getColumnIndex("subject"));
+        String place = cursor.getString(cursor.getColumnIndex("place"));
+        String description = cursor.getString(cursor.getColumnIndex("description"));
 
-            endSchedules.setText(context.getString(R.string.text_end)
-                    + hourString + " : " + minString + " " + subject + " / " + place + ": " + description);
-        }
+        endSchedules.setText(context.getString(R.string.text_end)
+                + hourString + " : " + minString + " " + subject + " / " + place + ": " + description);
     }
 
     @Override

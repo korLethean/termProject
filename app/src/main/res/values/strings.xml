@@ -34,6 +34,12 @@
     <string name="text_start">"[START] "</string>
     <string name="text_end">"[END] "</string>
     <string name="text_no_schedules">No Schedules</string>
+    <string name="text_popup_start">Start on</string>
+    <string name="text_popup_end">End on</string>
+    <string name="alert_delete_title">Delete Schedule</string>
+    <string name="alert_delete_description">Do you delete the schedule?</string>
+    <string name="alert_delete_confirm">Yes</string>
+    <string name="alert_delete_cancel">No</string>
     <string name="item_fast_setting">Fast Time Setting</string>
     <string name="item_ten_minutes">Ten Minutes</string>
     <string name="item_half_hour">Half Hour</string>
@@ -46,7 +52,8 @@
     <string name="item_eight_hours">8 Hours</string>
     <string name="item_half_day">Half Day</string>
     <string name="item_whole_day">Whole Day</string>
-    <string name="message_saved">Schedule Saved!</string>
+    <string name="message_saved">Schedule Saved</string>
+    <string name="message_deleted">Schedule Deleted</string>
     <string name="message_unable_set">Unable to set before start time</string>
     <string name="JANUARY">January</string>
     <string name="FEBRUARY">February</string>
