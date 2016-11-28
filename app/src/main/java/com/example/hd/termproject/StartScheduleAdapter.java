@@ -25,10 +25,9 @@ public class StartScheduleAdapter extends CursorAdapter {
             minString = String.valueOf(cursor.getInt(cursor.getColumnIndex("startMin")));
         String subject = cursor.getString(cursor.getColumnIndex("subject"));
         String place = cursor.getString(cursor.getColumnIndex("place"));
-        String description = cursor.getString(cursor.getColumnIndex("description"));
 
         startSchedules.setText(context.getString(R.string.text_start)
-                + hourString + " : " + minString + " " + subject + " / " + place + ": " + description);
+                + hourString + " : " + minString + " " + subject + " / " + place);
     }
 
     @Override

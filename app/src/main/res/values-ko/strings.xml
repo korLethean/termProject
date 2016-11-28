@@ -45,10 +45,10 @@
     <string name="AM">오전</string>
     <string name="PM">오후</string>
     <string name="activity_add">일정 추가</string>
-    <string name="text_description">일정 내용</string>
-    <string name="text_subject">일정 이름</string>
+    <string name="text_description">내용</string>
+    <string name="text_subject">제목</string>
     <string name="text_description_edit">내용을 입력하세요</string>
-    <string name="text_subject_edit">이름을 입력하세요</string>
+    <string name="text_subject_edit">제목을 입력하세요</string>
     <string name="button_pick">선택</string>
     <string name="menu_add">일정 추가</string>
     <string name="button_cancel">취소</string>
@@ -72,7 +72,6 @@
     <string name="text_place_edit">장소를 입력하세요</string>
     <string name="message_unable_set">시작 시간보다 늦어야 합니다</string>
     <string name="item_fast_setting">빠른 시간 설정</string>
-    <string name="text_no_schedules">일정 없음</string>
     <string name="text_end">"[종료] "</string>
     <string name="text_start">"[시작] "</string>
     <string name="button_close">닫기</string>
@@ -85,4 +84,6 @@
     <string name="alert_delete_cancel">아니오</string>
     <string name="alert_delete_confirm">네</string>
     <string name="message_deleted">일정이 삭제되었습니다</string>
+    <string name="text_popup_title">상세 일정</string>
+    <string name="message_edited">일정이 수정되었습니다</string>
 </resources>

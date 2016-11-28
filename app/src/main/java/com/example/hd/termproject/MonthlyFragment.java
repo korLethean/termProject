@@ -8,11 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.DrmInitData;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,23 +17,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.R.attr.fragmentCloseEnterAnimation;
-import static android.R.attr.scaleY;
-import static android.R.attr.startY;
-import static android.R.attr.width;
-import static android.R.attr.height;
+import static java.lang.Boolean.TRUE;
 
-public class MonthFragment extends Fragment{
+public class MonthlyFragment extends Fragment{
     private View fragmentView;
     private Context fragmentContext;
 
@@ -72,12 +61,12 @@ public class MonthFragment extends Fragment{
 
     private DBManager database;
 
-    public MonthFragment() { }
+    public MonthlyFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup container,
                                 Bundle savedInstanceState) {
-        fragmentView = layoutInflater.inflate(R.layout.fragment_month, container, false);
+        fragmentView = layoutInflater.inflate(R.layout.fragment_monthly, container, false);
         fragmentContext = container.getContext();
         database = new DBManager(fragmentContext, null);
         USE_FOR_QUERY = database.getWritableDatabase();
@@ -85,8 +74,8 @@ public class MonthFragment extends Fragment{
         textYearMonth = (TextView)fragmentView.findViewById(R.id.textYearMonth);
         textSelectedDay = (TextView)fragmentView.findViewById(R.id.textSelectedDay);
         buttonLast = (Button)fragmentView.findViewById(R.id.buttonLastMonth);
-        buttonToday = (Button)fragmentView.findViewById(R.id.buttonToday);
-        buttonPick = (Button)fragmentView.findViewById(R.id.buttonPick);
+        buttonToday = (Button)fragmentView.findViewById(R.id.buttonMonthlyToday);
+        buttonPick = (Button)fragmentView.findViewById(R.id.buttonMonthlyPick);
         buttonNext = (Button)fragmentView.findViewById(R.id.buttonNextMonth);
         calendarFrame = (GridView)fragmentView.findViewById(R.id.calendarFrame);
         datePickerDialog = new DatePickerDialog(fragmentContext, android.R.style.Theme_Holo_Dialog_MinWidth,
@@ -288,14 +277,17 @@ public class MonthFragment extends Fragment{
     }
 
     private void schedulePopupWindow(Cursor cursor) {
-        LayoutInflater layoutInflater = (LayoutInflater) fragmentContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.schedule_popup, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        final LayoutInflater layoutInflater = (LayoutInflater) fragmentContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View popupView = layoutInflater.inflate(R.layout.schedule_popup, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(fragmentContext);
+        builder.setTitle(fragmentContext.getString(R.string.text_popup_title));
+        builder.setView(popupView);
+        final AlertDialog popupWindow = builder.create();
+        popupWindow.setCanceledOnTouchOutside(false);
 
         final String databaseId = String.valueOf(cursor.getInt(cursor.getColumnIndex("_id")));
         int startYear = cursor.getInt(cursor.getColumnIndex("startYear"));
-        int startMonth = cursor.getInt(cursor.getColumnIndex("startMonth"));
+        int startMonth = cursor.getInt(cursor.getColumnIndex("startMonth")) + 1;
         int startDay = cursor.getInt(cursor.getColumnIndex("startDay"));
         int startHour = cursor.getInt(cursor.getColumnIndex("startHour"));
         String startMinString;
@@ -305,7 +297,7 @@ public class MonthFragment extends Fragment{
             startMinString = String.valueOf(cursor.getInt(cursor.getColumnIndex("startMin")));
 
         int endYear = cursor.getInt(cursor.getColumnIndex("endYear"));
-        int endMonth = cursor.getInt(cursor.getColumnIndex("endMonth"));
+        int endMonth = cursor.getInt(cursor.getColumnIndex("endMonth")) + 1;
         int endDay = cursor.getInt(cursor.getColumnIndex("endDay"));
         int endHour = cursor.getInt(cursor.getColumnIndex("endHour"));
         String endMinString;
@@ -333,14 +325,21 @@ public class MonthFragment extends Fragment{
         popupEnd.setText(end);
         popupDescription.setText(cursor.getString(cursor.getColumnIndex("description")));
 
-        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-        popupWindow.setFocusable(true);
-        popupWindow.update();
+        popupWindow.show();
 
         buttonClose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
+            }
+        });
+
+        buttonEdit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                MainActivity.setMode(TRUE);
+                Intent intent = new Intent(fragmentContext.getApplicationContext(), AddScheduleActivity.class);
+                startActivity(intent);
             }
         });
 

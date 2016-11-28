@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_no_schedules"
+        android:text="schedules"
         android:textColor="@color/BLACK"
         android:id="@+id/scheduleItem"
         />

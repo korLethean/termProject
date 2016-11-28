@@ -17,16 +17,12 @@ public class MainActivity extends AppCompatActivity {
     private static int YEAR;
     private static int MONTH;
     private static int DAY;
-    private static int HOUR;
-    private static int MIN;
-    private static int DURATION;
-    private static String SUBJECT;
-    private static String DESCRIPTION;
+    private static boolean EDIT_MODE;
 
     private int FRAGMENT_MANAGER;
-    private final MonthFragment monthFragment = new MonthFragment();
-//    private final WeekFragment weekFragment = new WeekFragment();
-//    private final DayFragment dayFragment = new DayFragment();
+    private final MonthlyFragment monthFragment = new MonthlyFragment();
+//    private final WeeklyFragment weekFragment = new WeeklyFragment();
+//    private final DailyFragment dayFragment = new DailyFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         YEAR = DATA.get(Calendar.YEAR);
         MONTH = DATA.get(Calendar.MONTH);
         DAY = DATA.get(Calendar.DATE);
+        EDIT_MODE = false;
 
         FRAGMENT_MANAGER = -1;
         switchFragment(0);
@@ -121,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
         return DAY;
     }
 
+    public static boolean getMode() {
+        return EDIT_MODE; }
+
     public static void setYear(int year) {
         YEAR = year;
     }
@@ -133,5 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static void setData() {
         DATA.set(YEAR, MONTH, DAY);
+    }
+
+    public static void setMode(boolean mode) {
+        EDIT_MODE = mode;
     }
 }

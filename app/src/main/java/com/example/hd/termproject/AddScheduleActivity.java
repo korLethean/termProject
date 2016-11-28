@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static java.lang.Boolean.FALSE;
+
 public class AddScheduleActivity extends AppCompatActivity {
     private Button buttonPickStartDay;
     private DatePickerDialog startDatePickerDialog;
@@ -214,10 +216,19 @@ public class AddScheduleActivity extends AppCompatActivity {
                 SCHEDULE_SUBJECT = editSubject.getText().toString();
                 SCHEDULE_PLACE = editPlace.getText().toString();
                 SCHEDULE_DESCRIPTION = editDescription.getText().toString();
-                Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
-                database.insert(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
-                        END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
-                        SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION);
+                if(!MainActivity.getMode()) {
+                    Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
+                    database.insert(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
+                            END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
+                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION);
+                }
+                else {
+                    MainActivity.setMode(FALSE);
+                    Toast.makeText(AddScheduleActivity.this, getString(R.string.message_edited), Toast.LENGTH_SHORT).show();
+                    database.insert(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
+                            END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
+                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION);
+                }
                 onBackPressed();
                 finish();
             }
@@ -238,8 +249,9 @@ public class AddScheduleActivity extends AppCompatActivity {
             END_MIN = START_MIN;
             START_CALENDAR_DATA.set(START_YEAR, START_MONTH, START_DAY);
             END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
-            editSubject.setText(getString(R.string.text_subject_edit));
-            editDescription.setText(getString(R.string.text_description_edit));
+            editSubject.setText("");
+            editDescription.setText("");
+            editPlace.setText("");
             setButtonTextSelectedDate(BUTTON_START);
             startDatePickerDialog.updateDate(START_YEAR, START_MONTH, START_DAY);
             setButtonTextSelectedDate(BUTTON_END);

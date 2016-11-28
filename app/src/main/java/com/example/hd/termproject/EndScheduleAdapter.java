@@ -26,10 +26,9 @@ public class EndScheduleAdapter extends CursorAdapter {
             minString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endMin")));
         String subject = cursor.getString(cursor.getColumnIndex("subject"));
         String place = cursor.getString(cursor.getColumnIndex("place"));
-        String description = cursor.getString(cursor.getColumnIndex("description"));
 
         endSchedules.setText(context.getString(R.string.text_end)
-                + hourString + " : " + minString + " " + subject + " / " + place + ": " + description);
+                + hourString + " : " + minString + " " + subject + " / " + place);
     }
 
     @Override

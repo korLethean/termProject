@@ -17,7 +17,7 @@ public class WeekFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentView = layoutInflater.inflate(R.layout.fragment_month, container, false);
+        fragmentView = layoutInflater.inflate(R.layout.fragment_monthly, container, false);
         fragmentContext = container.getContext();
         fragmentBundle = new Bundle();
         fragmentBundle = getArguments();
