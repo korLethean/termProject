@@ -1,7 +1,6 @@
 package com.example.hd.termproject;
 
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -119,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static boolean getMode() {
-        return EDIT_MODE; }
+        return EDIT_MODE;
+    }
 
     public static void setYear(int year) {
         YEAR = year;

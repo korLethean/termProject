@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_popup_start"
+            android:text="@string/text_detail_start"
             android:textColor="@color/BLACK"
             />
 
@@ -93,7 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_popup_end"
+            android:text="@string/text_detail_end"
             android:textColor="@color/BLACK"
             />
 
@@ -140,39 +140,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/popup_vertical_margin"
-        android:layout_marginBottom="@dimen/popup_vertical_margin"
-        android:gravity="center">
+        android:orientation="horizontal">
 
-        <Button
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/CYAN"
-            android:text="@string/button_close"
-            android:id="@+id/buttonClose"
-            />
+            android:layout_marginTop="@dimen/popup_vertical_margin"
+            android:layout_marginBottom="@dimen/popup_vertical_margin"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/CYAN"
-            android:text="@string/button_edit"
-            android:id="@+id/buttonEdit"
-            />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/CYAN"
+                android:text="@string/button_detail"
+                android:id="@+id/buttonPopupDetail"
+                />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/CYAN"
-            android:text="@string/button_delete"
-            android:id="@+id/buttonDelete"
-            />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/SKYBLUE"
+                android:textColor="@color/colorWhite"
+                android:text="@string/button_close"
+                android:id="@+id/buttonPopupClose"
+                />
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.hd.termproject;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -53,13 +52,13 @@ public class DBManager extends SQLiteOpenHelper{
     }
 
     public void update(int sy, int sm, int sd, int sHour, int sMin, int ey, int em, int ed, int eHour, int eMin,
-                       String subject, String place, String description) {
+                       String subject, String place, String description, int dbID) {
         SQLiteDatabase db = getWritableDatabase();
-        String query = String.format("UPDATE SCHEDULES SET startYear='%d' SET startMonth='%d' SET startDay='%d'"+
-                "SET startHour='%d' SET startMin='%d' SET endYear='%d' SET endMonth='%d' SET endDay='%d'" +
-                "SET endHour='%d' SET endMin='%d' SET place='%s' SET description='%s'"+
-                                "WHERE subject='%s'",
-                sy, sm, sd, sHour, sMin, ey, em, ed, eHour, eMin, place, description, subject);
+        String query = String.format("UPDATE SCHEDULES SET startYear='%d', startMonth='%d', startDay='%d', "+
+                "startHour='%d', startMin='%d', endYear='%d', endMonth='%d', endDay='%d', " +
+                "endHour='%d', endMin='%d', subject='%s', place='%s', description='%s' "+
+                                "WHERE _id='%d'",
+                sy, sm, sd, sHour, sMin, ey, em, ed, eHour, eMin, subject, place, description, dbID);
         db.execSQL(query);
         db.close();
     }
@@ -68,67 +67,5 @@ public class DBManager extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(query);
         db.close();
-    }
-
-    public int getYear(int day) {
-        SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("SELECT year FROM SCHEDULES WHERE startDay='%d';", day);
-        Cursor cursor = db.rawQuery(query, null);
-        return cursor.getInt(0);
-    }
-
-    public int getDuration(int id) {
-        SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("SELECT * FROM SCHEDULES WHERE _id='%d';", id);
-        Cursor cursor = db.rawQuery(query, null);
-        return cursor.getInt(0);
-    }
-
-    public String PrintStartData(int year, int month, int day) {
-        SQLiteDatabase db = getReadableDatabase();
-        String str = "";
-        String query = String.format("SELECT startHour, startMin, subject, place, description FROM SCHEDULES " +
-                                    "WHERE startYear='%d' AND startMonth='%d' AND startDay='%d';",
-                year, month, day);
-        Cursor cursor = db.rawQuery(query, null);
-
-        while(cursor.moveToNext()) {
-            String minutes = String.valueOf(cursor.getInt(2));
-            if(cursor.getInt(2) < 10)
-                minutes  = "0" + minutes;
-
-            str += "[START] "
-                    + cursor.getInt(0)
-                    + " : " + minutes
-                    + " " + cursor.getString(2)
-                    + " at " + cursor.getString(3)
-                    + " / " + cursor.getString(4)
-                    + "\n";
-        }
-        return str;
-    }
-
-    public String PrintEndData(int year, int month, int day) {
-        SQLiteDatabase db = getReadableDatabase();
-        String str = "";
-        String query = String.format("SELECT endHour, endMin, subject, place, description FROM SCHEDULES " +
-                        "WHERE endYear='%d' AND endMonth='%d' AND endDay='%d';",
-                year, month, day);
-        Cursor cursor = db.rawQuery(query, null);
-
-        while(cursor.moveToNext()) {
-            String minutes = String.valueOf(cursor.getInt(2));
-            if(cursor.getInt(2) < 10)
-                minutes  = "0" + minutes;
-
-            str += "[END] "
-                    + cursor.getInt(0)
-                    + " : " + minutes
-                    + " " + cursor.getString(2)
-                    + " at " + cursor.getString(3)
-                    + " / " + cursor.getString(4)
-                    + "\n";
-        }
-        return str;
     }
 }

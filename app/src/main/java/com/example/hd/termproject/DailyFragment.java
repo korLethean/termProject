@@ -35,8 +35,4 @@ public class DailyFragment extends Fragment {
     private boolean CALENDAR_LEAP;
     private ArrayList<String> CALENDAR_DAYOFWEEK;
     private Calendar CALENDAR_DATA;
-
-
-
-
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_edit_schedule"
+    android:id="@+id/activity_detail_schedule"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -21,95 +21,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_start_day"
+            android:text="@string/text_subject"
+            android:textSize="18dp"
             android:textColor="@color/BLACK"
             />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/button_pick_day"
-            android:id="@+id/buttonPickStartDay"
-            />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/button_pick_time"
-            android:id="@+id/buttonPickStartTime"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/text_end_day"
-                android:textColor="@color/BLACK"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/button_pick_day"
-                android:id="@+id/buttonPickEndDay"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/button_pick_time"
-                android:id="@+id/buttonPickEndTime"
-                 />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/settings"
-            android:id="@+id/spinnerFastSetting"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_subject"
-            android:textColor="@color/BLACK"
-            />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="@string/text_subject_edit"
-            android:id="@+id/editSubject"
+            android:text="detail_subject"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textDetailSubject"
             />
     </LinearLayout>
 
@@ -125,17 +49,81 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_place"
+            android:textSize="18dp"
             android:textColor="@color/BLACK"
             />
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="@string/text_place_edit"
-            android:id="@+id/editPlace"
+            android:text="detail_place"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textDetailPlace"
             />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_detail_start"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="detail_start_date_and_time"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textDetailStartDate"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_detail_end"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="detail_end_date_and_time"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textDetailEndDate"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:background="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -148,16 +136,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_description"
+            android:textSize="18dp"
             android:textColor="@color/BLACK"
+            android:id="@+id/textDescription"
             />
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text_description_edit"
-            android:id="@+id/editDescription"
+            android:text="detail_description"
+            android:textSize="18dp"
+            android:textColor="@color/BLACK"
+            android:id="@+id/textDetailDescription"
             />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -173,8 +166,8 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/CYAN"
-            android:text="@string/button_reset"
-            android:id="@+id/buttonAddReset"
+            android:text="@string/button_edit"
+            android:id="@+id/buttonDetailEdit"
             />
 
         <Button
@@ -183,8 +176,8 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/CYAN"
-            android:text="@string/button_cancel"
-            android:id="@+id/buttonAddCancel"
+            android:text="@string/button_delete"
+            android:id="@+id/buttonDetailDelete"
             />
 
         <Button
@@ -193,8 +186,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/SKYBLUE"
             android:textColor="@color/colorWhite"
-            android:text="@string/button_save"
-            android:id="@+id/buttonAddSave"
+            android:text="@string/button_close"
+            android:id="@+id/buttonDetailClose"
             />
     </LinearLayout>
 </LinearLayout>

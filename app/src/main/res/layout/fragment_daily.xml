@@ -171,7 +171,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/text_popup_start"
+                        android:text="@string/text_detail_start"
                         android:textColor="@color/BLACK"
                         />
 
@@ -195,7 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/text_popup_end"
+                        android:text="@string/text_detail_end"
                         android:textColor="@color/BLACK"
                         />
 

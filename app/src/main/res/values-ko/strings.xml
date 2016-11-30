@@ -52,7 +52,6 @@
     <string name="button_pick">선택</string>
     <string name="menu_add">일정 추가</string>
     <string name="button_cancel">취소</string>
-    <string name="button_clear">재입력</string>
     <string name="button_save">저장</string>
     <string name="message_saved">일정이 저장되었습니다</string>
     <string name="text_start_day">시작일</string>
@@ -77,13 +76,15 @@
     <string name="button_close">닫기</string>
     <string name="button_delete">삭제</string>
     <string name="button_edit">편집</string>
-    <string name="text_popup_end">일정 시작</string>
-    <string name="text_popup_start">일정 종료</string>
+    <string name="text_detail_end">일정 종료</string>
+    <string name="text_detail_start">일정 시작</string>
     <string name="alert_delete_description">일정을 삭제합니까?</string>
     <string name="alert_delete_title">일정 삭제</string>
     <string name="alert_delete_cancel">아니오</string>
     <string name="alert_delete_confirm">네</string>
     <string name="message_deleted">일정이 삭제되었습니다</string>
-    <string name="text_popup_title">상세 일정</string>
+    <string name="text_detail_title">상세 일정</string>
     <string name="message_edited">일정이 수정되었습니다</string>
+    <string name="button_detail">자세히</string>
+    <string name="button_reset">초기화</string>
 </resources>

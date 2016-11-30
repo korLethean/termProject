@@ -2,6 +2,9 @@ package com.example.hd.termproject;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,9 +36,9 @@ public class AddScheduleActivity extends AppCompatActivity {
     private EditText editSubject;
     private EditText editPlace;
     private EditText editDescription;
-    private Button buttonSave;
-    private Button buttonClear;
+    private Button buttonReset;
     private Button buttonCancel;
+    private Button buttonSave;
     private final int BUTTON_START = 0;
     private final int BUTTON_END = 1;
     private final int SPINNER_CHECK = 2;
@@ -58,6 +61,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     private String SCHEDULE_DESCRIPTION;
 
     private DBManager database;
+    private int databaseID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,22 +69,13 @@ public class AddScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_schedule);
         database = new DBManager(getApplicationContext(), null);
 
-        START_YEAR = MainActivity.getYear();
-        END_YEAR = START_YEAR;
-        START_MONTH = MainActivity.getMonth();
-        END_MONTH = START_MONTH;
-        START_DAY = MainActivity.getDay();
-        END_DAY = START_DAY;
+        if(MainActivity.getMode()) {
+            Intent intent = getIntent();
+            databaseID = intent.getIntExtra("_id", 0);
+        }
 
         START_CALENDAR_DATA = Calendar.getInstance();
-        START_CALENDAR_DATA.set(START_YEAR, START_MONTH, START_DAY);
         END_CALENDAR_DATA = Calendar.getInstance();
-        END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
-
-        START_HOUR = START_CALENDAR_DATA.get(Calendar.HOUR);
-        END_HOUR = START_HOUR + 1;
-        START_MIN = START_CALENDAR_DATA.get(Calendar.MINUTE);
-        END_MIN = START_MIN;
 
         CALENDAR_DAYOFWEEK = new ArrayList<String>();
         CALENDAR_DAYOFWEEK.add(getString(R.string.calendar_error));
@@ -100,8 +95,6 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         buttonPickStartDay = (Button)findViewById(R.id.buttonPickStartDay);
         buttonPickStartTime = (Button)findViewById(R.id.buttonPickStartTime);
-        setButtonTextSelectedDate(BUTTON_START);
-        setButtonTextSelectedTime(BUTTON_START);
         startDatePickerDialog = new DatePickerDialog(AddScheduleActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth,
                 new DatePickerDialog.OnDateSetListener(){
                     @Override
@@ -124,8 +117,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                 }, START_HOUR, START_MIN, false);
         buttonPickEndDay = (Button)findViewById(R.id.buttonPickEndDay);
         buttonPickEndTime = (Button)findViewById(R.id.buttonPickEndTime);
-        setButtonTextSelectedDate(BUTTON_END);
-        setButtonTextSelectedTime(BUTTON_END);
         endDatePickerDialog = new DatePickerDialog(AddScheduleActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth,
                 new DatePickerDialog.OnDateSetListener(){
                     @Override
@@ -137,7 +128,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                         checkDateAndTimeError(BUTTON_END);
                     }
                 }, END_YEAR, END_MONTH, END_DAY);
-
         endTimePickerDialog = new TimePickerDialog(AddScheduleActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth,
                 new TimePickerDialog.OnTimeSetListener(){
                     @Override
@@ -150,14 +140,9 @@ public class AddScheduleActivity extends AppCompatActivity {
         editSubject = (EditText)findViewById(R.id.editSubject);
         editPlace = (EditText)findViewById(R.id.editPlace);
         editDescription = (EditText)findViewById(R.id.editDescription);
-        buttonSave = (Button)findViewById(R.id.buttonSave);
-        buttonClear = (Button)findViewById(R.id.buttonClear);
-        buttonCancel = (Button)findViewById(R.id.buttonCancel);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        buttonReset = (Button)findViewById(R.id.buttonAddReset);
+        buttonCancel = (Button)findViewById(R.id.buttonAddCancel);
+        buttonSave = (Button)findViewById(R.id.buttonAddSave);
 
         buttonPickStartDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,20 +176,48 @@ public class AddScheduleActivity extends AppCompatActivity {
             }
         });
 
-        buttonSave.setOnClickListener(saveListener);
-
-        buttonClear.setOnClickListener(clearListener);
+        buttonReset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                initializeValues();
+            }
+        });
 
         buttonCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                MainActivity.setMode(FALSE);
                 onBackPressed();
                 finish();
             }
         });
 
+        buttonSave.setOnClickListener(saveListener);
+
         spinnerFastSetting.setOnItemSelectedListener(spinnerListener);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
+
+    @Override
+    public void onResume() {
+        initializeValues();
+        super.onResume();
+    }
+
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                MainActivity.setMode(FALSE);
+                onBackPressed();
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    };
 
     private Button.OnClickListener saveListener = new Button.OnClickListener() {
             @Override
@@ -216,15 +229,15 @@ public class AddScheduleActivity extends AppCompatActivity {
                 SCHEDULE_SUBJECT = editSubject.getText().toString();
                 SCHEDULE_PLACE = editPlace.getText().toString();
                 SCHEDULE_DESCRIPTION = editDescription.getText().toString();
-                if(!MainActivity.getMode()) {
-                    Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
-                    database.insert(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
-                            END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
-                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION);
-                }
-                else {
+                if(MainActivity.getMode()) {
                     MainActivity.setMode(FALSE);
                     Toast.makeText(AddScheduleActivity.this, getString(R.string.message_edited), Toast.LENGTH_SHORT).show();
+                    database.update(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
+                            END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
+                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION, databaseID);
+                }
+                else {
+                    Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
                     database.insert(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
                             END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
                             SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION);
@@ -234,104 +247,132 @@ public class AddScheduleActivity extends AppCompatActivity {
             }
         };
 
-    private Button.OnClickListener clearListener = new Button.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            START_YEAR = MainActivity.getYear();
-            END_YEAR = START_YEAR;
-            START_MONTH = MainActivity.getMonth();
-            END_MONTH = START_MONTH;
-            START_DAY = MainActivity.getDay();
-            END_DAY = START_DAY;
-            START_HOUR = START_CALENDAR_DATA.get(Calendar.HOUR);
-            END_HOUR = START_HOUR + 1;
-            START_MIN = START_CALENDAR_DATA.get(Calendar.MINUTE);
-            END_MIN = START_MIN;
-            START_CALENDAR_DATA.set(START_YEAR, START_MONTH, START_DAY);
-            END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
-            editSubject.setText("");
-            editDescription.setText("");
-            editPlace.setText("");
-            setButtonTextSelectedDate(BUTTON_START);
-            startDatePickerDialog.updateDate(START_YEAR, START_MONTH, START_DAY);
-            setButtonTextSelectedDate(BUTTON_END);
-            endDatePickerDialog.updateDate(END_YEAR, END_MONTH, END_DAY);
-            setButtonTextSelectedTime(BUTTON_START);
-            startTimePickerDialog.updateTime(START_HOUR, START_MIN);
-            setButtonTextSelectedTime(BUTTON_END);
-            endTimePickerDialog.updateTime(END_HOUR, END_MIN);
-            spinnerFastSetting.setSelection(0);
-        }
-    };
-
     private Spinner.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener(){
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            END_YEAR = START_YEAR;
-            END_MONTH = START_MONTH;
-            END_DAY = START_DAY;
-            END_HOUR = START_HOUR;
-            END_MIN = START_MIN;
-            switch(position) {
-                case 1:
-                    END_MIN += 10;
-                    break;
-                case 2:
-                    END_MIN += 30;
-                    break;
-                case 3:
-                    END_HOUR += 1;
-                    break;
-                case 4:
-                    END_HOUR += 2;
-                    break;
-                case 5:
-                    END_HOUR += 3;
-                    break;
-                case 6:
-                    END_HOUR += 4;
-                    break;
-                case 7:
-                    END_HOUR += 5;
-                    break;
-                case 8:
-                    END_HOUR += 8;
-                    break;
-                case 9:
-                    END_HOUR += 12;
-                    break;
-                case 10:
-                    START_HOUR = 0;
-                    START_MIN = 0;
-                    END_HOUR = 23;
-                    END_MIN = 59;
-                    setButtonTextSelectedTime(BUTTON_START);
-                    startTimePickerDialog.updateTime(START_HOUR, START_MIN);
-                    break;
-                default:
-                    break;
-            }
-            if(position != 0) {
-                checkDateAndTimeError(SPINNER_CHECK);
-                setButtonTextSelectedDate(BUTTON_END);
-                endDatePickerDialog.updateDate(END_YEAR, END_MONTH, END_DAY);
-                setButtonTextSelectedTime(BUTTON_END);
-                endTimePickerDialog.updateTime(END_HOUR, END_MIN);
+            if(position == 0) { // position == 0일때도 작동하기 때문에
+            }                   // switch문 바깥에 있는 end_year = start_year 등의 구문은 작동함
+            else {              // 이를 방지하기 위해 아무 기능을 하지 않는 if문 하나 작성
+                END_YEAR = START_YEAR;
+                END_MONTH = START_MONTH;
+                END_DAY = START_DAY;
+                END_HOUR = START_HOUR;
+                END_MIN = START_MIN;
+                switch (position) {
+                    case 1:
+                        END_MIN += 10;
+                        break;
+                    case 2:
+                        END_MIN += 30;
+                        break;
+                    case 3:
+                        END_HOUR += 1;
+                        break;
+                    case 4:
+                        END_HOUR += 2;
+                        break;
+                    case 5:
+                        END_HOUR += 3;
+                        break;
+                    case 6:
+                        END_HOUR += 4;
+                        break;
+                    case 7:
+                        END_HOUR += 5;
+                        break;
+                    case 8:
+                        END_HOUR += 8;
+                        break;
+                    case 9:
+                        END_HOUR += 12;
+                        break;
+                    case 10:
+                        START_HOUR = 0;
+                        START_MIN = 0;
+                        END_HOUR = 23;
+                        END_MIN = 59;
+                        setButtonTextSelectedTime(BUTTON_START);
+                        startTimePickerDialog.updateTime(START_HOUR, START_MIN);
+                        break;
+                    default:
+                        break;
+                }
+                if (position != 0) {
+                    checkDateAndTimeError(SPINNER_CHECK);
+                    setButtonTextSelectedDate(BUTTON_END);
+                    endDatePickerDialog.updateDate(END_YEAR, END_MONTH, END_DAY);
+                    setButtonTextSelectedTime(BUTTON_END);
+                    endTimePickerDialog.updateTime(END_HOUR, END_MIN);
+                }
             }
         }
         @Override
         public void onNothingSelected(AdapterView<?> parent) {}
     };
 
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                finish();
-                return true;
+    private void initializeValues() {
+        if(MainActivity.getMode()) {
+            String query = String.format("SELECT * FROM SCHEDULES WHERE _id='%d';", databaseID);
+            SQLiteDatabase USE_FOR_QUERY = database.getReadableDatabase();
+            Cursor cursor = USE_FOR_QUERY.rawQuery(query, null);
+            cursor.moveToFirst();
+
+            START_YEAR = cursor.getInt(cursor.getColumnIndex("startYear"));
+            END_YEAR = cursor.getInt(cursor.getColumnIndex("endYear"));
+            START_MONTH = cursor.getInt(cursor.getColumnIndex("startMonth"));
+            END_MONTH = cursor.getInt(cursor.getColumnIndex("endMonth"));
+            START_DAY = cursor.getInt(cursor.getColumnIndex("startDay"));
+            END_DAY = cursor.getInt(cursor.getColumnIndex("endDay"));
+
+            START_CALENDAR_DATA.set(START_YEAR, START_MONTH, START_DAY);
+            END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
+
+            START_HOUR = cursor.getInt(cursor.getColumnIndex("startHour"));
+            END_HOUR = cursor.getInt(cursor.getColumnIndex("endHour"));
+            START_MIN = cursor.getInt(cursor.getColumnIndex("startMin"));
+            END_MIN = cursor.getInt(cursor.getColumnIndex("endMin"));
+
+            SCHEDULE_SUBJECT = cursor.getString(cursor.getColumnIndex("subject"));
+            SCHEDULE_PLACE = cursor.getString(cursor.getColumnIndex("place"));
+            SCHEDULE_DESCRIPTION = cursor.getString(cursor.getColumnIndex("description"));
+
+            editSubject.setText(SCHEDULE_SUBJECT);
+            editPlace.setText(SCHEDULE_PLACE);
+            editDescription.setText(SCHEDULE_DESCRIPTION);
         }
-        return super.onOptionsItemSelected(item);
-    };
+        else {
+            databaseID = -1;
+
+            START_YEAR = MainActivity.getYear();
+            END_YEAR = START_YEAR;
+            START_MONTH = MainActivity.getMonth();
+            END_MONTH = START_MONTH;
+            START_DAY = MainActivity.getDay();
+            END_DAY = START_DAY;
+
+            START_CALENDAR_DATA.set(START_YEAR, START_MONTH, START_DAY);
+            END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
+
+            START_HOUR = START_CALENDAR_DATA.get(Calendar.HOUR);
+            END_HOUR = START_HOUR + 1;
+            START_MIN = START_CALENDAR_DATA.get(Calendar.MINUTE);
+            END_MIN = START_MIN;
+
+            editSubject.setText("");
+            editPlace.setText("");
+            editDescription.setText("");
+        }
+
+        setButtonTextSelectedDate(BUTTON_START);
+        startDatePickerDialog.updateDate(START_YEAR, START_MONTH, START_DAY);
+        setButtonTextSelectedDate(BUTTON_END);
+        endDatePickerDialog.updateDate(END_YEAR, END_MONTH, END_DAY);
+        setButtonTextSelectedTime(BUTTON_START);
+        startTimePickerDialog.updateTime(START_HOUR, START_MIN);
+        setButtonTextSelectedTime(BUTTON_END);
+        endTimePickerDialog.updateTime(END_HOUR, END_MIN);
+        spinnerFastSetting.setSelection(0);
+    }
 
     private void setButtonTextSelectedDate(int mode) {
         int index;
@@ -437,9 +478,8 @@ public class AddScheduleActivity extends AppCompatActivity {
                     endDatePickerDialog.updateDate(END_YEAR, END_MONTH, END_DAY);
                 }
                 else if(START_CALENDAR_DATA.getTimeInMillis() == END_CALENDAR_DATA.getTimeInMillis()){
-                    // 시작일 = 종료일 이면서 시작시 > 종료시 또는 시작시 = 종료시 이면서 시작분 >= 종료분
-                    if(START_HOUR > END_HOUR || (START_HOUR == END_HOUR &&
-                            (START_MIN > END_MIN || START_MIN == END_MIN))) {
+                    // 시작일 = 종료일 이면서 시작시 > 종료시 또는 시작시 = 종료시 이면서 시작분 > 종료분
+                    if(START_HOUR > END_HOUR || (START_HOUR == END_HOUR && START_MIN > END_MIN)) {
                         END_HOUR = START_HOUR;
                         END_MIN = START_MIN;
                         Toast.makeText(AddScheduleActivity.this, getString(R.string.message_unable_set), Toast.LENGTH_SHORT).show();
@@ -465,8 +505,8 @@ public class AddScheduleActivity extends AppCompatActivity {
                             END_YEAR += 1;
                         }
                     }
-                    END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
                 }
+                END_CALENDAR_DATA.set(END_YEAR, END_MONTH, END_DAY);
                 break;
             default :
                 break;

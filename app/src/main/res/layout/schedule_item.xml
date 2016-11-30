@@ -12,5 +12,4 @@
         android:textColor="@color/BLACK"
         android:id="@+id/scheduleItem"
         />
-
 </LinearLayout>

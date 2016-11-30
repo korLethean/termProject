@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,13 +17,10 @@ import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import static java.lang.Boolean.TRUE;
 
 public class MonthlyFragment extends Fragment{
     private View fragmentView;
@@ -50,16 +46,12 @@ public class MonthlyFragment extends Fragment{
     private GridView calendarFrame;
     StartScheduleAdapter startScheduleAdapter;
     private ListView startScheduleFrame;
-    private ListView endScheduleFrame;
     EndScheduleAdapter endScheduleAdapter;
-
-    private Cursor startCursor;
-    private Cursor endCursor;
-    private SQLiteDatabase USE_FOR_QUERY;
-    private String startQuery;
-    private String endQuery;
+    private ListView endScheduleFrame;
 
     private DBManager database;
+    private Cursor startCursor;
+    private Cursor endCursor;
 
     public MonthlyFragment() { }
 
@@ -69,7 +61,6 @@ public class MonthlyFragment extends Fragment{
         fragmentView = layoutInflater.inflate(R.layout.fragment_monthly, container, false);
         fragmentContext = container.getContext();
         database = new DBManager(fragmentContext, null);
-        USE_FOR_QUERY = database.getWritableDatabase();
 
         textYearMonth = (TextView)fragmentView.findViewById(R.id.textYearMonth);
         textSelectedDay = (TextView)fragmentView.findViewById(R.id.textSelectedDay);
@@ -254,12 +245,13 @@ public class MonthlyFragment extends Fragment{
     }
 
     private void setTextSchedule() {
-        startQuery = String.format("SELECT * FROM SCHEDULES WHERE startYear='%d' AND startMonth='%d' AND startDay='%d' " +
+        String startQuery = String.format("SELECT * FROM SCHEDULES WHERE startYear='%d' AND startMonth='%d' AND startDay='%d' " +
                         "ORDER BY startHour, startMin;",
                 CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
-        endQuery = String.format("SELECT * FROM SCHEDULES WHERE endYear='%d' AND endMonth='%d' AND endDay='%d' " +
+        String endQuery = String.format("SELECT * FROM SCHEDULES WHERE endYear='%d' AND endMonth='%d' AND endDay='%d' " +
                         "ORDER BY endHour, endMin;",
                 CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
+        SQLiteDatabase USE_FOR_QUERY = database.getReadableDatabase();
 
         startCursor = USE_FOR_QUERY.rawQuery(startQuery, null);
         endCursor = USE_FOR_QUERY.rawQuery(endQuery, null);
@@ -273,51 +265,52 @@ public class MonthlyFragment extends Fragment{
             endScheduleAdapter.changeCursor(endCursor);
         else
             endScheduleAdapter.changeCursor(null);
-
     }
 
     private void schedulePopupWindow(Cursor cursor) {
+        cursor.moveToFirst();
         final LayoutInflater layoutInflater = (LayoutInflater) fragmentContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.schedule_popup, null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(fragmentContext);
-        builder.setTitle(fragmentContext.getString(R.string.text_popup_title));
+        builder.setTitle(fragmentContext.getString(R.string.text_detail_title));
         builder.setView(popupView);
         final AlertDialog popupWindow = builder.create();
         popupWindow.setCanceledOnTouchOutside(false);
 
-        final String databaseId = String.valueOf(cursor.getInt(cursor.getColumnIndex("_id")));
-        int startYear = cursor.getInt(cursor.getColumnIndex("startYear"));
-        int startMonth = cursor.getInt(cursor.getColumnIndex("startMonth")) + 1;
-        int startDay = cursor.getInt(cursor.getColumnIndex("startDay"));
-        int startHour = cursor.getInt(cursor.getColumnIndex("startHour"));
+        final int databaseID = cursor.getInt(cursor.getColumnIndex("_id"));
+        final int startYear = cursor.getInt(cursor.getColumnIndex("startYear"));
+        final int startMonth = cursor.getInt(cursor.getColumnIndex("startMonth"));
+        final int startDay = cursor.getInt(cursor.getColumnIndex("startDay"));
+        final int startHour = cursor.getInt(cursor.getColumnIndex("startHour"));
+        final int startMin = cursor.getInt(cursor.getColumnIndex("startMin"));
         String startMinString;
-        if (cursor.getInt(cursor.getColumnIndex("startMin")) < 10)
-            startMinString = String.valueOf("0" + cursor.getInt(cursor.getColumnIndex("startMin")));
+        if (startMin < 10)
+            startMinString = String.valueOf("0" + startMin);
         else
-            startMinString = String.valueOf(cursor.getInt(cursor.getColumnIndex("startMin")));
+            startMinString = String.valueOf(startMin);
 
-        int endYear = cursor.getInt(cursor.getColumnIndex("endYear"));
-        int endMonth = cursor.getInt(cursor.getColumnIndex("endMonth")) + 1;
-        int endDay = cursor.getInt(cursor.getColumnIndex("endDay"));
-        int endHour = cursor.getInt(cursor.getColumnIndex("endHour"));
+        final int endYear = cursor.getInt(cursor.getColumnIndex("endYear"));
+        final int endMonth = cursor.getInt(cursor.getColumnIndex("endMonth"));
+        final int endDay = cursor.getInt(cursor.getColumnIndex("endDay"));
+        final int endHour = cursor.getInt(cursor.getColumnIndex("endHour"));
+        final int endMin = cursor.getInt(cursor.getColumnIndex("endMin"));
         String endMinString;
-        if (cursor.getInt(cursor.getColumnIndex("endMin")) < 10)
-            endMinString = String.valueOf("0" + cursor.getInt(cursor.getColumnIndex("endMin")));
+        if (endMin < 10)
+            endMinString = String.valueOf("0" + endMin);
         else
-            endMinString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endMin")));
+            endMinString = String.valueOf(endMin);
 
-        String start = String.format("%d/%d/%d\t %d : %s", startYear, startMonth, startDay, startHour, startMinString);
-        String end = String.format("%d/%d/%d\t %d : %s", endYear, endMonth, endDay, endHour, endMinString);
+        String start = String.format("%d/%d/%d\t %d : %s", startYear, startMonth + 1, startDay, startHour, startMinString);
+        String end = String.format("%d/%d/%d\t %d : %s", endYear, endMonth + 1, endDay, endHour, endMinString);
 
-        TextView popupSubject = (TextView)popupView.findViewById(R.id.popupSubject);
-        TextView popupPlace = (TextView)popupView.findViewById(R.id.popupPlace);
+        final TextView popupSubject = (TextView)popupView.findViewById(R.id.popupSubject);
+        final TextView popupPlace = (TextView)popupView.findViewById(R.id.popupPlace);
         TextView popupStart = (TextView)popupView.findViewById(R.id.popupStart);
         TextView popupEnd = (TextView)popupView.findViewById(R.id.popupEnd);
-        TextView popupDescription = (TextView)popupView.findViewById(R.id.popupDescription);
+        final TextView popupDescription = (TextView)popupView.findViewById(R.id.popupDescription);
 
-        Button buttonClose = (Button)popupView.findViewById(R.id.buttonClose);
-        Button buttonEdit = (Button)popupView.findViewById(R.id.buttonEdit); // 미구현
-        Button buttonDelete = (Button)popupView.findViewById(R.id.buttonDelete);
+        Button buttonClose = (Button)popupView.findViewById(R.id.buttonPopupClose);
+        Button buttonDetail = (Button)popupView.findViewById(R.id.buttonPopupDetail);
 
         popupSubject.setText(cursor.getString(cursor.getColumnIndex("subject")));
         popupPlace.setText(cursor.getString(cursor.getColumnIndex("place")));
@@ -334,40 +327,13 @@ public class MonthlyFragment extends Fragment{
             }
         });
 
-        buttonEdit.setOnClickListener(new View.OnClickListener(){
+        buttonDetail.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                MainActivity.setMode(TRUE);
-                Intent intent = new Intent(fragmentContext.getApplicationContext(), AddScheduleActivity.class);
+                Intent intent = new Intent(fragmentContext.getApplicationContext(), DetailScheduleActivity.class);
+                intent.putExtra("_id", databaseID);
+                popupWindow.dismiss();
                 startActivity(intent);
-            }
-        });
-
-        buttonDelete.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(fragmentContext);
-                builder.setTitle(fragmentContext.getString(R.string.alert_delete_title))
-                        .setMessage(fragmentContext.getString(R.string.alert_delete_description))
-                        .setCancelable(false)
-                        .setPositiveButton(fragmentContext.getString(R.string.alert_delete_confirm),
-                                new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int whichButton){
-                                USE_FOR_QUERY.delete("SCHEDULES", "_id=?", new String[]{databaseId});
-                                dialog.cancel();
-                                popupWindow.dismiss();
-                                setTextSchedule();
-                                Toast.makeText(fragmentContext, getString(R.string.message_deleted), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton(fragmentContext.getString(R.string.alert_delete_cancel),
-                                new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int whichButton){
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
             }
         });
     }

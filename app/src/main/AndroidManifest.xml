@@ -16,10 +16,14 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-
         <activity
             android:name=".AddScheduleActivity"
             android:label="@string/activity_add"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".DetailScheduleActivity"
+            android:label="@string/text_detail_title"
             android:parentActivityName=".MainActivity">
         </activity>
 
