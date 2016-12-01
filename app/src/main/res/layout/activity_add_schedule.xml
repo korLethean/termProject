@@ -22,24 +22,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_start_day"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="@string/button_pick_day"
-            android:id="@+id/buttonPickStartDay"
-            />
+            android:id="@+id/buttonPickStartDay" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="@string/button_pick_time"
-            android:id="@+id/buttonPickStartTime"
-            />
+            android:id="@+id/buttonPickStartTime" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,24 +51,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/text_end_day"
-                android:textColor="@color/BLACK"
-                />
+                android:textColor="@color/BLACK" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="@string/button_pick_day"
-                android:id="@+id/buttonPickEndDay"
-                />
+                android:id="@+id/buttonPickEndDay" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/button_pick_time"
-                android:id="@+id/buttonPickEndTime"
-                 />
+                android:id="@+id/buttonPickEndTime" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,8 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/settings"
-            android:id="@+id/spinnerFastSetting"
-            />
+            android:id="@+id/spinnerFastSetting" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,16 +94,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_subject"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:hint="@string/text_subject_edit"
-            android:id="@+id/editSubject"
-            />
+            android:id="@+id/editSubject" />
     </LinearLayout>
 
     <LinearLayout
@@ -125,16 +116,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_place"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:hint="@string/text_place_edit"
-            android:id="@+id/editPlace"
-            />
+            android:id="@+id/editPlace" />
     </LinearLayout>
 
     <LinearLayout
@@ -148,15 +137,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_description"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/text_description_edit"
-            android:id="@+id/editDescription"
-            />
+            android:id="@+id/editDescription" />
     </LinearLayout>
 
     <LinearLayout
@@ -174,8 +161,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/CYAN"
             android:text="@string/button_reset"
-            android:id="@+id/buttonAddReset"
-            />
+            android:id="@+id/buttonAddReset" />
 
         <Button
             android:layout_width="0dp"
@@ -184,8 +170,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/CYAN"
             android:text="@string/button_cancel"
-            android:id="@+id/buttonAddCancel"
-            />
+            android:id="@+id/buttonAddCancel" />
 
         <Button
             android:layout_width="0dp"
@@ -194,7 +179,6 @@
             android:backgroundTint="@color/SKYBLUE"
             android:textColor="@color/colorWhite"
             android:text="@string/button_save"
-            android:id="@+id/buttonAddSave"
-            />
+            android:id="@+id/buttonAddSave" />
     </LinearLayout>
 </LinearLayout>

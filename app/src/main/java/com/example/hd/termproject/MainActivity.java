@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private static boolean EDIT_MODE;
 
     private int FRAGMENT_MANAGER;
-    private final MonthlyFragment monthFragment = new MonthlyFragment();
-//    private final WeeklyFragment weekFragment = new WeeklyFragment();
-//    private final DailyFragment dayFragment = new DailyFragment();
+    private final MonthlyFragment monthlyFragment = new MonthlyFragment();
+//    private final WeeklyFragment weeklyFragment = new WeeklyFragment();
+    private final DailyFragment dailyFragment = new DailyFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         if(id == 0 && FRAGMENT_MANAGER != 0) {
             FRAGMENT_MANAGER = 0;
             getSupportActionBar().setTitle(getString(R.string.title_month));
-            fragmentTransaction.replace(R.id.activity_main, monthFragment);
+            fragmentTransaction.replace(R.id.activity_main, monthlyFragment);
         }
         else if(id == 1 && FRAGMENT_MANAGER != 1) {
             FRAGMENT_MANAGER = 1;
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         else if(id == 2 && FRAGMENT_MANAGER != 2) {
             FRAGMENT_MANAGER = 2;
             getSupportActionBar().setTitle(getString(R.string.title_day));
-            //fragmentTransaction.replace(R.id.activity_main, monthFragment);
+            fragmentTransaction.replace(R.id.activity_main, dailyFragment);
         }
         else if(id == 3) {
             Intent intent = new Intent(getApplicationContext(), AddScheduleActivity.class);

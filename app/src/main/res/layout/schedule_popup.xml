@@ -22,8 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_subject"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -31,8 +30,7 @@
             android:layout_weight="2"
             android:text="popup_subject"
             android:textColor="@color/BLACK"
-            android:id="@+id/popupSubject"
-            />
+            android:id="@+id/popupSubject" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,8 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_place"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -55,8 +52,7 @@
             android:layout_weight="2"
             android:text="popup_place"
             android:textColor="@color/BLACK"
-            android:id="@+id/popupPlace"
-            />
+            android:id="@+id/popupPlace" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,8 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_detail_start"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -79,8 +74,7 @@
             android:layout_weight="2"
             android:text="popup_start_schedule"
             android:textColor="@color/BLACK"
-            android:id="@+id/popupStart"
-            />
+            android:id="@+id/popupStart" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,8 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_detail_end"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -103,8 +96,7 @@
             android:layout_weight="2"
             android:text="popup_end_schedule"
             android:textColor="@color/BLACK"
-            android:id="@+id/popupEnd"
-            />
+            android:id="@+id/popupEnd" />
     </LinearLayout>
 
     <View
@@ -125,16 +117,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_description"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/BLACK"
             android:text="popup_description"
-            android:id="@+id/popupDescription"
-            />
+            android:id="@+id/popupDescription" />
     </LinearLayout>
 
     <LinearLayout
@@ -163,8 +153,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="@color/CYAN"
                 android:text="@string/button_detail"
-                android:id="@+id/buttonPopupDetail"
-                />
+                android:id="@+id/buttonPopupDetail" />
 
             <Button
                 android:layout_width="0dp"
@@ -173,8 +162,7 @@
                 android:backgroundTint="@color/SKYBLUE"
                 android:textColor="@color/colorWhite"
                 android:text="@string/button_close"
-                android:id="@+id/buttonPopupClose"
-                />
+                android:id="@+id/buttonPopupClose" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

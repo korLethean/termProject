@@ -27,57 +27,55 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Today"
-                    android:textColor="@color/BLACK"
-                    android:id="@+id/textToday"
-                    android:textAlignment="textStart" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Day of week"
-                    android:textColor="@color/BLACK"
-                    android:id="@+id/textDayOfWeek"
-                    android:textAlignment="textEnd" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Year"
+                    android:textSize="20dp"
                     android:textColor="@color/BLACK"
                     android:id="@+id/textYear"
-                    android:textSize="18dp"
                     android:textAlignment="textEnd" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Month"
+                    android:textSize="20dp"
                     android:textColor="@color/BLACK"
                     android:id="@+id/textMonth"
-                    android:textSize="18dp"
                     android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Today"
+                    android:textSize="40dp"
+                    android:id="@+id/textToday" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:text="Day of week"
+                    android:textSize="20dp"
+                    android:gravity="bottom"
+                    android:id="@+id/textDayOfWeek" />
             </LinearLayout>
         </LinearLayout>
 
@@ -91,22 +89,68 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_start"
+                    android:textColor="@color/BLACK"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_no_schedule"
+                    android:textColor="@color/BLACK"
+                    android:textAlignment="center"
+                    android:id="@+id/textDailyStartNoSchedule" />
 
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/scheduleDailyFrame">
-                </ListView>
+                    android:layout_height="wrap_content"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:id="@+id/scheduleDailyStartFrame" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/popup_vertical_margin"
+                    android:layout_marginBottom="@dimen/popup_vertical_margin"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_end"
+                    android:textColor="@color/BLACK"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_no_schedule"
+                    android:textColor="@color/BLACK"
+                    android:textAlignment="center"
+                    android:id="@+id/textDailyEndNoSchedule" />
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:id="@+id/scheduleDailyEndFrame" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,8 +159,8 @@
                 android:layout_weight="2"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:paddingTop="@dimen/activity_vertical_margin">
 
                 <LinearLayout
@@ -128,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/text_subject"
-                    android:textColor="@color/BLACK"/>
+                    android:textColor="@color/BLACK" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -136,7 +180,7 @@
                     android:layout_weight="2"
                     android:text="daily_subject"
                     android:textColor="@color/BLACK"
-                    android:id="@+id/dailySubject"/>
+                    android:id="@+id/dailySubject" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -150,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/text_place"
-                        android:textColor="@color/BLACK"/>
+                        android:textColor="@color/BLACK" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -158,7 +202,7 @@
                         android:layout_weight="2"
                         android:text="daily_place"
                         android:textColor="@color/BLACK"
-                        android:id="@+id/dailyPlace"/>
+                        android:id="@+id/dailyPlace" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,8 +216,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/text_detail_start"
-                        android:textColor="@color/BLACK"
-                        />
+                        android:textColor="@color/BLACK" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -181,23 +224,21 @@
                         android:layout_weight="2"
                         android:text="start_schedule"
                         android:textColor="@color/BLACK"
-                        android:id="@+id/daliyStart"
-                        />
+                        android:id="@+id/daliyStart" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/popup_vertical_margin"
-                    android:layout_marginBottom="@dimen/popup_vertical_margin">
+                    android:layout_marginBottom="@dimen/popup_vertical_margin"
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/text_detail_end"
-                        android:textColor="@color/BLACK"
-                        />
+                        android:textColor="@color/BLACK" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -205,13 +246,12 @@
                         android:layout_weight="2"
                         android:text="end_schedule"
                         android:textColor="@color/BLACK"
-                        android:id="@+id/dailyEnd"
-                        />
+                        android:id="@+id/dailyEnd" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/popup_vertical_margin"
                     android:layout_marginBottom="@dimen/popup_vertical_margin">
@@ -220,16 +260,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/text_description"
-                        android:textColor="@color/BLACK"
-                        />
+                        android:textColor="@color/BLACK" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/BLACK"
                         android:text="daily_description"
-                        android:id="@+id/popupDescription"
-                        />
+                        android:id="@+id/dailyDescription" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="bottom"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:backgroundTint="@color/SKYBLUE"
+                                android:textColor="@color/colorWhite"
+                                android:text="@string/button_detail"
+                                android:id="@+id/buttonDailyDetail" />
+                        </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -240,6 +295,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="horizontal">
 
             <Button
@@ -249,8 +308,7 @@
                 android:text="@string/button_last"
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="@color/CYAN"
-                android:id="@+id/buttonLastDay"
-                />
+                android:id="@+id/buttonLastDay" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -259,8 +317,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="@color/CYAN"
                 android:text="@string/button_today"
-                android:id="@+id/buttonToday"
-                />
+                android:id="@+id/buttonDailyToday" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -269,8 +326,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="@color/CYAN"
                 android:text="@string/button_pick"
-                android:id="@+id/buttonPick"
-                />
+                android:id="@+id/buttonDailyPick" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -279,7 +335,6 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="@color/CYAN"
                 android:text="@string/button_next"
-                android:id="@+id/buttonNextDay"
-                />
+                android:id="@+id/buttonNextDay" />
     </LinearLayout>
 </LinearLayout>

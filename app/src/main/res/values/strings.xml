@@ -26,6 +26,7 @@
     <string name="button_delete">Delete</string>
     <string name="text_start_day">Start</string>
     <string name="text_end_day">End</string>
+    <string name="text_no_schedule">No Schedule</string>
     <string name="text_subject">Subject</string>
     <string name="text_subject_edit">Enter Schedule Subject</string>
     <string name="text_place">Place</string>
@@ -38,7 +39,7 @@
     <string name="text_detail_start">Start on</string>
     <string name="text_detail_end">End on</string>
     <string name="alert_delete_title">Delete Schedule</string>
-    <string name="alert_delete_description">Do you delete the schedule?</string>
+    <string name="alert_delete_description">Do you delete this schedule?</string>
     <string name="alert_delete_confirm">Yes</string>
     <string name="alert_delete_cancel">No</string>
     <string name="item_fast_setting">Fast Time Setting</string>

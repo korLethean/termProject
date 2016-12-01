@@ -23,8 +23,7 @@
             android:layout_weight="1"
             android:text="@string/text_subject"
             android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -33,8 +32,7 @@
             android:text="detail_subject"
             android:textSize="18dp"
             android:textColor="@color/BLACK"
-            android:id="@+id/textDetailSubject"
-            />
+            android:id="@+id/textDetailSubject" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,8 +48,7 @@
             android:layout_weight="1"
             android:text="@string/text_place"
             android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -60,8 +57,7 @@
             android:text="detail_place"
             android:textSize="18dp"
             android:textColor="@color/BLACK"
-            android:id="@+id/textDetailPlace"
-            />
+            android:id="@+id/textDetailPlace" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,8 +73,7 @@
             android:layout_weight="1"
             android:text="@string/text_detail_start"
             android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -87,8 +82,7 @@
             android:text="detail_start_date_and_time"
             android:textSize="18dp"
             android:textColor="@color/BLACK"
-            android:id="@+id/textDetailStartDate"
-            />
+            android:id="@+id/textDetailStartDate" />
     </LinearLayout>
 
     <LinearLayout
@@ -104,8 +98,7 @@
             android:layout_weight="1"
             android:text="@string/text_detail_end"
             android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            />
+            android:textColor="@color/BLACK" />
 
         <TextView
             android:layout_width="0dp"
@@ -114,8 +107,7 @@
             android:text="detail_end_date_and_time"
             android:textSize="18dp"
             android:textColor="@color/BLACK"
-            android:id="@+id/textDetailEndDate"
-            />
+            android:id="@+id/textDetailEndDate" />
     </LinearLayout>
 
     <View
@@ -138,8 +130,7 @@
             android:text="@string/text_description"
             android:textSize="18dp"
             android:textColor="@color/BLACK"
-            android:id="@+id/textDescription"
-            />
+            android:id="@+id/textDescription" />
 
         <TextView
             android:layout_width="match_parent"
@@ -147,8 +138,7 @@
             android:text="detail_description"
             android:textSize="18dp"
             android:textColor="@color/BLACK"
-            android:id="@+id/textDetailDescription"
-            />
+            android:id="@+id/textDetailDescription" />
     </LinearLayout>
 
 
@@ -167,8 +157,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/CYAN"
             android:text="@string/button_edit"
-            android:id="@+id/buttonDetailEdit"
-            />
+            android:id="@+id/buttonDetailEdit" />
 
         <Button
             android:layout_width="0dp"
@@ -177,8 +166,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/CYAN"
             android:text="@string/button_delete"
-            android:id="@+id/buttonDetailDelete"
-            />
+            android:id="@+id/buttonDetailDelete" />
 
         <Button
             android:layout_width="0dp"
@@ -187,7 +175,6 @@
             android:backgroundTint="@color/SKYBLUE"
             android:textColor="@color/colorWhite"
             android:text="@string/button_close"
-            android:id="@+id/buttonDetailClose"
-            />
+            android:id="@+id/buttonDetailClose" />
     </LinearLayout>
 </LinearLayout>

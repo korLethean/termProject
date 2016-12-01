@@ -94,7 +94,7 @@ public class CalendarAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(mResource, parent, false);
         }
 
-        TextView calendarText = (TextView) convertView.findViewById(R.id.calendarItem);
+        TextView calendarText = (TextView)convertView.findViewById(R.id.calendarItem);
         if (getItemId(position) < DAYOFWEEK_EXCLUDE) {
             calendarText.setText(CALENDAR_DAYOFWEEK.get(position));
         } else {

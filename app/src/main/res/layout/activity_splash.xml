@@ -15,6 +15,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/title_animation"
         android:layout_gravity="center"
-        android:src="@drawable/fure"
-        />
+        android:src="@drawable/fure" />
 </FrameLayout>

@@ -12,6 +12,5 @@
         android:textSize="18dp"
         android:text="1"
         android:textColor="@color/BLACK"
-        android:id="@+id/calendarItem"
-        />
+        android:id="@+id/calendarItem" />
 </LinearLayout>

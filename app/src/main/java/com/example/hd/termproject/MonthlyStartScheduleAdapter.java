@@ -8,26 +8,25 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-public class EndScheduleAdapter extends CursorAdapter {
-
-    public EndScheduleAdapter(Context context, Cursor cursor, int flags) {
+public class MonthlyStartScheduleAdapter extends CursorAdapter {
+    public MonthlyStartScheduleAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView endSchedules = (TextView)view.findViewById(R.id.scheduleItem);
+        TextView startSchedules = (TextView)view.findViewById(R.id.scheduleItem);
 
-        String hourString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endHour")));
+        String hourString = String.valueOf(cursor.getInt(cursor.getColumnIndex("startHour")));
         String minString;
-        if (cursor.getInt(cursor.getColumnIndex("endMin")) < 10)
-            minString = String.valueOf("0" + cursor.getInt(cursor.getColumnIndex("endMin")));
+        if (cursor.getInt(cursor.getColumnIndex("startMin")) < 10)
+            minString = String.valueOf("0" + cursor.getInt(cursor.getColumnIndex("startMin")));
         else
-            minString = String.valueOf(cursor.getInt(cursor.getColumnIndex("endMin")));
+            minString = String.valueOf(cursor.getInt(cursor.getColumnIndex("startMin")));
         String subject = cursor.getString(cursor.getColumnIndex("subject"));
         String place = cursor.getString(cursor.getColumnIndex("place"));
 
-        endSchedules.setText(context.getString(R.string.text_end)
+        startSchedules.setText(context.getString(R.string.text_start)
                 + hourString + " : " + minString + " " + subject + " / " + place);
     }
 
