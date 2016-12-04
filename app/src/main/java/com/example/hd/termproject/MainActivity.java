@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int FRAGMENT_MANAGER;
     private final MonthlyFragment monthlyFragment = new MonthlyFragment();
-//    private final WeeklyFragment weeklyFragment = new WeeklyFragment();
+    private final WeeklyFragment weeklyFragment = new WeeklyFragment();
     private final DailyFragment dailyFragment = new DailyFragment();
 
     @Override
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         else if(id == 1 && FRAGMENT_MANAGER != 1) {
             FRAGMENT_MANAGER = 1;
             getSupportActionBar().setTitle(getString(R.string.title_week));
-            //fragmentTransaction.replace(R.id.activity_main, monthFragment);
+            fragmentTransaction.replace(R.id.activity_main, weeklyFragment);
         }
         else if(id == 2 && FRAGMENT_MANAGER != 2) {
             FRAGMENT_MANAGER = 2;

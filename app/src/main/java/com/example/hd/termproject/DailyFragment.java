@@ -120,6 +120,7 @@ public class DailyFragment extends Fragment {
                         setTextSelectedYearMonthDay();
                         setTextScheduleList();
                         initializeScheduleString();
+                        changeStaticValues();
                     }
                 }, CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
 
@@ -143,6 +144,7 @@ public class DailyFragment extends Fragment {
                 setTextSelectedYearMonthDay();
                 setTextScheduleList();
                 initializeScheduleString();
+                changeStaticValues();
                 datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             }
         });
@@ -157,6 +159,7 @@ public class DailyFragment extends Fragment {
                 setTextSelectedYearMonthDay();
                 setTextScheduleList();
                 initializeScheduleString();
+                changeStaticValues();
                 datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             }
         });
@@ -176,6 +179,7 @@ public class DailyFragment extends Fragment {
                 setTextSelectedYearMonthDay();
                 setTextScheduleList();
                 initializeScheduleString();
+                changeStaticValues();
                 datePickerDialog.updateDate(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             }
         });
@@ -244,6 +248,7 @@ public class DailyFragment extends Fragment {
             CALENDAR_DATA.set(CALENDAR_YEAR, CALENDAR_MONTH, CALENDAR_DAY);
             setTextSelectedYearMonthDay();
             setTextScheduleList();
+            changeStaticValues();
         }
     };
 
@@ -301,11 +306,9 @@ public class DailyFragment extends Fragment {
             textToday.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
             textDayOfWeek.setTextColor(ContextCompat.getColor(fragmentContext, R.color.BLACK));
         }
-        changeStaticValues();
     }
 
     private void setTextSelectedSchedule(Cursor cursor) {
-
         databaseID = cursor.getInt(cursor.getColumnIndex("_id"));
         final int startYear = cursor.getInt(cursor.getColumnIndex("startYear"));
         final int startMonth = cursor.getInt(cursor.getColumnIndex("startMonth"));

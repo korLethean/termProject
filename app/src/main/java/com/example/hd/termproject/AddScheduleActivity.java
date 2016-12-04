@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,6 +63,8 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     private DBManager database;
     private int databaseID;
+
+    private InputMethodManager inputMethodManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -143,6 +146,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         buttonReset = (Button)findViewById(R.id.buttonAddReset);
         buttonCancel = (Button)findViewById(R.id.buttonAddCancel);
         buttonSave = (Button)findViewById(R.id.buttonAddSave);
+        inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
         buttonPickStartDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +210,10 @@ public class AddScheduleActivity extends AppCompatActivity {
     public void onResume() {
         initializeValues();
         super.onResume();
+    }
+
+    public void backgroundOnClick(View view) {
+        hideKeyboard();
     }
 
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
@@ -511,5 +519,11 @@ public class AddScheduleActivity extends AppCompatActivity {
             default :
                 break;
         }
+    }
+
+    private void hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(editSubject.getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(editPlace.getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(editDescription.getWindowToken(), 0);
     }
 }

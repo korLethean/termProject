@@ -3,6 +3,7 @@
     <string name="activity_add">Add Schedule</string>
     <string name="calendar_year">.</string>
     <string name="calendar_month">.</string>
+    <string name="calendar_day">.</string>
     <string name="title_month">Monthly Calendar</string>
     <string name="title_week">Weekly Calendar</string>
     <string name="title_day">Daily Calendar</string>
@@ -26,6 +27,8 @@
     <string name="button_delete">Delete</string>
     <string name="text_start_day">Start</string>
     <string name="text_end_day">End</string>
+    <string name="text_date">Date</string>
+    <string name="text_schedule">Schedule</string>
     <string name="text_no_schedule">No Schedule</string>
     <string name="text_subject">Subject</string>
     <string name="text_subject_edit">Enter Schedule Subject</string>

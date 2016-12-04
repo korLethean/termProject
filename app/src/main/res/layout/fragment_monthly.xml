@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_month"
+    android:id="@+id/fragment_monthly"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,10 +16,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Month and Year"
+        android:text="Year and Month"
         android:textColor="@color/BLACK"
         android:id="@+id/textYearMonth"
-        android:textSize="18dp"
+        android:textSize="20dp"
         android:textAlignment="center" />
 
     <GridView
@@ -30,7 +30,7 @@
         android:id="@+id/calendarFrame" />
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/popup_vertical_margin"
         android:layout_marginBottom="@dimen/popup_vertical_margin"
