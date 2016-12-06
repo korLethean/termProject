@@ -5,13 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import static java.lang.Boolean.TRUE;
 
@@ -44,6 +48,14 @@ public class DetailScheduleActivity extends AppCompatActivity {
     private String SCHEDULE_PLACE;
     private String SCHEDULE_DESCRIPTION;
 
+    private TextView textAttachedNothing;
+    private ImageView imageAttachment;
+    private int HAS_IMAGE;
+    private String IMAGE_FILE_PATH;
+    private VideoView videoAttachment;
+    private int HAS_VIDEO;
+    private String VIDEO_FILE_PATH;
+
     private DBManager database;
     SQLiteDatabase USE_FOR_QUERY;
 
@@ -66,6 +78,12 @@ public class DetailScheduleActivity extends AppCompatActivity {
         buttonDetailEdit = (Button)findViewById(R.id.buttonDetailEdit);
         buttonDetailDelete = (Button)findViewById(R.id.buttonDetailDelete);
         buttonDetailClose = (Button)findViewById(R.id.buttonDetailClose);
+
+        textAttachedNothing = (TextView)findViewById(R.id.textAttachedNothing);
+        imageAttachment = (ImageView)findViewById(R.id.imageAttachment);
+        videoAttachment = (VideoView)findViewById(R.id.videoAttachment);
+        final MediaController controller = new MediaController(this);
+        videoAttachment.setMediaController(controller);
 
         buttonDetailEdit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -152,6 +170,32 @@ public class DetailScheduleActivity extends AppCompatActivity {
         SCHEDULE_SUBJECT = cursor.getString(cursor.getColumnIndex("subject"));
         SCHEDULE_PLACE = cursor.getString(cursor.getColumnIndex("place"));
         SCHEDULE_DESCRIPTION = cursor.getString(cursor.getColumnIndex("description"));
+        HAS_IMAGE = cursor.getInt(cursor.getColumnIndex("hasImage"));
+        IMAGE_FILE_PATH = cursor.getString(cursor.getColumnIndex("imagePath"));
+        HAS_VIDEO = cursor.getInt(cursor.getColumnIndex("hasVideo"));
+        VIDEO_FILE_PATH = cursor.getString(cursor.getColumnIndex("videoPath"));
+
+        if(HAS_IMAGE == 1 || HAS_VIDEO == 1) { // 첨부 하나라도 미디어 없음 텍스트 안보임
+            textAttachedNothing.setVisibility(View.GONE);
+            if(HAS_IMAGE == 1) {    // 이미지 있으면 이미지 뷰 보임
+                imageAttachment.setImageURI(Uri.parse(IMAGE_FILE_PATH));
+                imageAttachment.setVisibility(View.VISIBLE);
+            }
+            else
+                imageAttachment.setVisibility(View.GONE);
+
+            if(HAS_VIDEO == 1) {    // 동영상 있으면 비디오 뷰 보임
+                videoAttachment.setVideoURI(Uri.parse(VIDEO_FILE_PATH));
+                videoAttachment.setVisibility(View.VISIBLE);
+            }
+            else
+                videoAttachment.setVisibility(View.GONE);
+        }
+        else {   // 하나도 첨부 안되면 텍스트 보임
+            textAttachedNothing.setVisibility(View.VISIBLE);
+            imageAttachment.setVisibility(View.GONE);
+            videoAttachment.setVisibility(View.GONE);
+        }
 
         if (START_MIN < 10)
             START_MIN_STRING = String.valueOf("0" + START_MIN);

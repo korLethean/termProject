@@ -25,6 +25,8 @@
     <string name="button_edit">Edit</string>
     <string name="button_detail">Detail</string>
     <string name="button_delete">Delete</string>
+    <string name="button_select">Select</string>
+    <string name="button_attached">Attached</string>
     <string name="text_start_day">Start</string>
     <string name="text_end_day">End</string>
     <string name="text_date">Date</string>
@@ -36,11 +38,15 @@
     <string name="text_place_edit">Enter Schedule Place</string>
     <string name="text_description">Description</string>
     <string name="text_description_edit">Enter Schedule Description</string>
+    <string name="text_attachment">Attached Media</string>
     <string name="text_start">"[START] "</string>
     <string name="text_end">"[END] "</string>
     <string name="text_detail_title">Detailed Schedule</string>
     <string name="text_detail_start">Start on</string>
     <string name="text_detail_end">End on</string>
+    <string name="text_image">Image</string>
+    <string name="text_video">Video</string>
+    <string name="text_attached_nothing">No Media Attached</string>
     <string name="alert_delete_title">Delete Schedule</string>
     <string name="alert_delete_description">Do you delete this schedule?</string>
     <string name="alert_delete_confirm">Yes</string>
@@ -60,6 +66,10 @@
     <string name="message_saved">Schedule Saved</string>
     <string name="message_edited">Schedule Edited</string>
     <string name="message_deleted">Schedule Deleted</string>
+    <string name="message_attached">Attached Media</string>
+    <string name="message_image_failed">Only Image files can be attached</string>
+    <string name="message_video_failed">Only Video files can be attached</string>
+    <string name="message_attachment_deleted">Attachment Deleted</string>
     <string name="message_unable_set">Unable to set before start time</string>
     <string name="JANUARY">January</string>
     <string name="FEBRUARY">February</string>

@@ -29,7 +29,11 @@ public class DBManager extends SQLiteOpenHelper{
                 "endMin INTEGER NULL," +
                 "subject TEXT NULL," +
                 "place TEXT NULL," +
-                "description TEXT NULL" +
+                "description TEXT NULL," +
+                "hasImage INTEGER NULL," +
+                "imagePath TEXT NULL," +
+                "hasVideo INTEGER NULL," +
+                "videoPath TEXT NULL" +
                 ");");
         db.execSQL(query);
     }
@@ -39,26 +43,28 @@ public class DBManager extends SQLiteOpenHelper{
     }
 
     public void insert(int sy, int sm, int sd, int sHour, int sMin, int ey, int em, int ed, int eHour, int eMin,
-                       String subject, String place, String description) {
+                       String subject, String place, String description, int hi, String ip, int hv, String vp) {
         SQLiteDatabase db = getWritableDatabase();
         String query = String.format (
                 "INSERT INTO SCHEDULES (_id, startYear, startMonth, startDay, startHour, startMin, " +
-                        "endYear, endMonth, endDay, endHour, endMin, subject, place, description)\n"+
+                        "endYear, endMonth, endDay, endHour, endMin, subject, place, description, " +
+                        "hasImage, imagePath, hasVideo, videoPath)\n"+
                         "VALUES (NULL, '%d', '%d', '%d', '%d', '%d', " +
-                        "'%d', '%d', '%d', '%d', '%d', '%s', '%s', '%s')",
-                sy, sm, sd, sHour, sMin, ey, em, ed, eHour, eMin, subject, place, description);
+                        "'%d', '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%d', '%s')",
+                sy, sm, sd, sHour, sMin, ey, em, ed, eHour, eMin, subject, place, description, hi, ip, hv, vp);
         db.execSQL(query);
         db.close();
     }
 
     public void update(int sy, int sm, int sd, int sHour, int sMin, int ey, int em, int ed, int eHour, int eMin,
-                       String subject, String place, String description, int dbID) {
+                       String subject, String place, String description, int hi, String ip, int hv, String vp, int dbID) {
         SQLiteDatabase db = getWritableDatabase();
         String query = String.format("UPDATE SCHEDULES SET startYear='%d', startMonth='%d', startDay='%d', "+
                 "startHour='%d', startMin='%d', endYear='%d', endMonth='%d', endDay='%d', " +
-                "endHour='%d', endMin='%d', subject='%s', place='%s', description='%s' "+
+                "endHour='%d', endMin='%d', subject='%s', place='%s', description='%s', " +
+                "hasImage='%d', imagePath='%s', hasVideo='%d', videoPath='%s' "+
                                 "WHERE _id='%d'",
-                sy, sm, sd, sHour, sMin, ey, em, ed, eHour, eMin, subject, place, description, dbID);
+                sy, sm, sd, sHour, sMin, ey, em, ed, eHour, eMin, subject, place, description, hi, ip, hv, vp, dbID);
         db.execSQL(query);
         db.close();
     }

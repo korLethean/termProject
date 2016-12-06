@@ -19,10 +19,12 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class AddScheduleActivity extends AppCompatActivity {
     private Button buttonPickStartDay;
@@ -60,6 +62,16 @@ public class AddScheduleActivity extends AppCompatActivity {
     private String SCHEDULE_SUBJECT;
     private String SCHEDULE_PLACE;
     private String SCHEDULE_DESCRIPTION;
+
+    private Button buttonImageSelect;
+    private Button buttonImageDelete;
+    private Button buttonVideoSelect;
+    private Button buttonVideoDelete;
+
+    private int HAS_IMAGE;
+    private String IMAGE_FILE_PATH;
+    private int HAS_VIDEO;
+    private String VIDEO_FILE_PATH;
 
     private DBManager database;
     private int databaseID;
@@ -148,6 +160,11 @@ public class AddScheduleActivity extends AppCompatActivity {
         buttonSave = (Button)findViewById(R.id.buttonAddSave);
         inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
+        buttonImageSelect = (Button)findViewById(R.id.buttonImageSelect);
+        buttonImageDelete = (Button)findViewById(R.id.buttonImageDelete);
+        buttonVideoSelect = (Button)findViewById(R.id.buttonVideoSelect);
+        buttonVideoDelete = (Button)findViewById(R.id.buttonVideoDelete);
+
         buttonPickStartDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,6 +217,75 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         spinnerFastSetting.setOnItemSelectedListener(spinnerListener);
 
+        buttonImageSelect.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                final FilePicker filePicker = new FilePicker(AddScheduleActivity.this).setFileListener(new FilePicker.FileSelectedListener() {
+                    @Override
+                    public void fileSelected(final File file) {
+                        if(!file.getName().endsWith(".jpg") && !file.getName().endsWith(".png"))
+                            Toast.makeText(AddScheduleActivity.this, getString(R.string.message_image_failed), Toast.LENGTH_SHORT).show();
+                        else {
+                            HAS_IMAGE = 1;
+                            IMAGE_FILE_PATH = file.getPath();
+                            buttonImageSelect.setClickable(FALSE);
+                            buttonImageSelect.setText(getString(R.string.button_attached));
+                            buttonImageDelete.setVisibility(View.VISIBLE);
+                            Toast.makeText(AddScheduleActivity.this, getString(R.string.message_attached), Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                });
+                filePicker.showDialog();
+            }
+        });
+
+        buttonImageDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                HAS_IMAGE = 0;
+                IMAGE_FILE_PATH = null;
+                buttonImageSelect.setClickable(TRUE);
+                buttonImageSelect.setText(getString(R.string.button_select));
+                buttonImageDelete.setVisibility(View.INVISIBLE);
+                Toast.makeText(AddScheduleActivity.this, getString(R.string.message_attachment_deleted), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        buttonVideoSelect.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                final FilePicker filePicker = new FilePicker(AddScheduleActivity.this).setFileListener(new FilePicker.FileSelectedListener() {
+                    @Override
+                    public void fileSelected(final File file) {
+                        if(!file.getName().endsWith(".mp4"))
+                            Toast.makeText(AddScheduleActivity.this, getString(R.string.message_video_failed), Toast.LENGTH_SHORT).show();
+                        else {
+                            HAS_VIDEO = 1;
+                            VIDEO_FILE_PATH = file.getPath();
+                            buttonVideoSelect.setClickable(FALSE);
+                            buttonVideoSelect.setText(getString(R.string.button_attached));
+                            buttonVideoDelete.setVisibility(View.VISIBLE);
+                            Toast.makeText(AddScheduleActivity.this, getString(R.string.message_attached), Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                });
+                filePicker.showDialog();
+            }
+        });
+
+        buttonVideoDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                HAS_VIDEO = 0;
+                VIDEO_FILE_PATH = null;
+                buttonVideoSelect.setClickable(TRUE);
+                buttonVideoSelect.setText(getString(R.string.button_select));
+                buttonVideoDelete.setVisibility(View.INVISIBLE);
+                Toast.makeText(AddScheduleActivity.this, getString(R.string.message_attachment_deleted), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -242,13 +328,15 @@ public class AddScheduleActivity extends AppCompatActivity {
                     Toast.makeText(AddScheduleActivity.this, getString(R.string.message_edited), Toast.LENGTH_SHORT).show();
                     database.update(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
                             END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
-                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION, databaseID);
+                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION,
+                            HAS_IMAGE, IMAGE_FILE_PATH, HAS_VIDEO, VIDEO_FILE_PATH, databaseID);
                 }
                 else {
                     Toast.makeText(AddScheduleActivity.this, getString(R.string.message_saved), Toast.LENGTH_SHORT).show();
                     database.insert(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MIN,
                             END_YEAR, END_MONTH, END_DAY, END_HOUR, END_MIN,
-                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION);
+                            SCHEDULE_SUBJECT, SCHEDULE_PLACE, SCHEDULE_DESCRIPTION,
+                            HAS_IMAGE, IMAGE_FILE_PATH, HAS_VIDEO, VIDEO_FILE_PATH);
                 }
                 onBackPressed();
                 finish();
@@ -344,6 +432,30 @@ public class AddScheduleActivity extends AppCompatActivity {
             SCHEDULE_PLACE = cursor.getString(cursor.getColumnIndex("place"));
             SCHEDULE_DESCRIPTION = cursor.getString(cursor.getColumnIndex("description"));
 
+            HAS_IMAGE =  cursor.getInt(cursor.getColumnIndex("hasImage"));
+            IMAGE_FILE_PATH = cursor.getString(cursor.getColumnIndex("imagePath"));
+            if(HAS_IMAGE == 1) {
+                buttonImageSelect.setText(R.string.button_attached);
+                buttonImageSelect.setClickable(FALSE);
+                buttonImageDelete.setVisibility(View.VISIBLE);
+            }
+            else {
+                buttonImageSelect.setClickable(TRUE);
+                buttonImageDelete.setVisibility(View.INVISIBLE);
+            }
+
+            HAS_VIDEO =  cursor.getInt(cursor.getColumnIndex("hasVideo"));
+            VIDEO_FILE_PATH = cursor.getString(cursor.getColumnIndex("videoPath"));
+            if(HAS_VIDEO == 1) {
+                buttonVideoSelect.setText(R.string.button_attached);
+                buttonVideoSelect.setClickable(FALSE);
+                buttonVideoDelete.setVisibility(View.VISIBLE);
+            }
+            else {
+                buttonVideoSelect.setClickable(TRUE);
+                buttonVideoDelete.setVisibility(View.INVISIBLE);
+            }
+
             editSubject.setText(SCHEDULE_SUBJECT);
             editPlace.setText(SCHEDULE_PLACE);
             editDescription.setText(SCHEDULE_DESCRIPTION);
@@ -365,6 +477,16 @@ public class AddScheduleActivity extends AppCompatActivity {
             END_HOUR = START_HOUR + 1;
             START_MIN = START_CALENDAR_DATA.get(Calendar.MINUTE);
             END_MIN = START_MIN;
+
+            HAS_IMAGE = 0;
+            IMAGE_FILE_PATH = null;
+            HAS_VIDEO = 0;
+            VIDEO_FILE_PATH = null;
+
+            buttonImageSelect.setClickable(TRUE);
+            buttonImageDelete.setVisibility(View.INVISIBLE);
+            buttonVideoSelect.setClickable(TRUE);
+            buttonVideoDelete.setVisibility(View.INVISIBLE);
 
             editSubject.setText("");
             editPlace.setText("");

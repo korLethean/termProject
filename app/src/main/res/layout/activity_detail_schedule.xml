@@ -12,140 +12,191 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_subject"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="detail_subject"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            android:id="@+id/textDetailSubject" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_place"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="detail_place"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            android:id="@+id/textDetailPlace" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_detail_start"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="detail_start_date_and_time"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            android:id="@+id/textDetailStartDate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_detail_end"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="detail_end_date_and_time"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            android:id="@+id/textDetailEndDate" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:background="@color/colorPrimary" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:gravity="top"
-        android:layout_weight="10">
+        android:layout_weight="3">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_description"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            android:id="@+id/textDescription" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
 
-        <TextView
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_subject"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="detail_subject"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textDetailSubject" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="detail_description"
-            android:textSize="18dp"
-            android:textColor="@color/BLACK"
-            android:id="@+id/textDetailDescription" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_place"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="detail_place"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textDetailPlace" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_detail_start"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="detail_start_date_and_time"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textDetailStartDate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_detail_end"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="detail_end_date_and_time"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textDetailEndDate" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@color/colorPrimary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_description"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textDescription" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="detail_description"
+                android:textSize="18dp"
+                android:textColor="@color/BLACK"
+                android:id="@+id/textDetailDescription" />
+        </LinearLayout>
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_attachment"
+                    android:textSize="18dp"
+                    android:textColor="@color/BLACK" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/text_attached_nothing"
+                    android:textSize="18dp"
+                    android:textColor="@color/BLACK"
+                    android:id="@+id/textAttachedNothing" />
+
+                <ImageView
+                    android:layout_width="360dp"
+                    android:layout_height="240dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/imageAttachment"/>
+
+                <VideoView
+                    android:layout_width="360dp"
+                    android:layout_height="240dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/videoAttachment"/>
+            </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
+        android:layout_height="0dp"
+        android:gravity="bottom"
         android:orientation="horizontal"
         android:layout_weight="1"
         android:background="@color/colorWhite">
